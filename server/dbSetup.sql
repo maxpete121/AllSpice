@@ -8,12 +8,14 @@ CREATE TABLE IF NOT EXISTS accounts(
 ) default charset utf8 COMMENT '';
 
 
-CREATE TABLE Recipe(
+CREATE TABLE recipes(
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(40) NOT NULL,
   instructions VARCHAR(500) NOT NULL,
   img VARCHAR(500) NOT NULL,
-  category TEXT NOT NULL,
+  category ENUM ("Cheese", "Italian", "Soup", "Mexican", "Specialty Coffee") DEFAULT "Soup",
   creatorId VARCHAR(255) NOT NULL,
   Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+DROP TABLE recipes;

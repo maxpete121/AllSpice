@@ -15,13 +15,27 @@ public class RecipeController : ControllerBase{
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Recipe>> CreateRecipe([FromBody] Recipe recipeData){
+    public async Task<ActionResult<Recipes>> CreateRecipe([FromBody] Recipes recipeData){
         try
         {
             Account userInfo = await auth.GetUserInfoAsync<Account>(HttpContext);
             recipeData.CreatorId = userInfo.Id;
-            Recipe recipe = recipeService.CreateRecipe(recipeData);
+            Recipes recipe = recipeService.CreateRecipe(recipeData);
             return Ok(recipe);
+        }
+        catch (Exception error)
+        {
+            
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpGet]
+    public ActionResult<List<Recipes>> GetRecipes(){
+        try
+        {
+        List<Recipes> recipes = recipeService.GetRecipes();
+        return Ok(recipes);
         }
         catch (Exception error)
         {

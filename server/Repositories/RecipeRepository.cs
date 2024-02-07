@@ -4,36 +4,36 @@ public class RecipeRepository(IDbConnection db){
     private readonly IDbConnection db = db;
 
     
-    internal Recipe CreateRecipe(Recipe recipeData){
+    internal Recipes CreateRecipe(Recipes recipeData){
         string sql = @"
-        INSERT INTO Recipe
-        (title, instructions, img, creatorId)
+        INSERT INTO recipes
+        (title, instructions, img, category, creatorId)
         VALUES
-        (@title, @instructions, @img, @creatorId);
+        (@title, @instructions, @img, @category, @creatorId);
 
         SELECT
-        Recipe.*,
+        recipes.*,
         accounts.*
-        FROM Recipe
-        JOIN accounts ON Recipe.creatorId = accounts.id
-        WHERE Recipe.id = LAST_INSERT_ID();
+        FROM recipes
+        JOIN accounts ON recipes.creatorId = accounts.id
+        WHERE recipes.id = LAST_INSERT_ID();
         ";
 
-        Recipe recipe = db.Query<Recipe, Account, Recipe>(sql, (recipe, account)=>{
+        Recipes recipe = db.Query<Recipes, Account, Recipes>(sql, (recipe, account)=>{
             recipe.Creator = account;
             return recipe;
         }, recipeData).FirstOrDefault();
         return recipe;
     }
 
-    internal List<Recipe> GetRecipes(){
+    internal List<Recipes> GetRecipes(){
         string sql = @"
         SELECT
-        Recipe.*,
+        recipes.*,
         accounts.*
-        FROM Recipe
-        JOIN accounts ON Recipe.creatorId = accounts.id";
-        List<Recipe> recipes = db.Query<Recipe, Account, Recipe>(sql, (recipes, account)=>{
+        FROM recipes
+        JOIN accounts ON recipes.creatorId = accounts.id";
+        List<Recipes> recipes = db.Query<Recipes, Account, Recipes>(sql, (recipes, account)=>{
             recipes.Creator = account;
             return recipes;
         }).ToList();
