@@ -21,10 +21,10 @@ public class RecipeService(RecipeRepository repo){
 
     internal Recipes EditRecipe(Recipes updateData, int recipeId){
         Recipes originalRecipe = GetRecipeById(recipeId);
-        originalRecipe.Title ??= updateData.Title;
-        originalRecipe.Instructions ??= updateData.Instructions;
-        originalRecipe.Img ??= updateData.Img;
-        originalRecipe.Category ??= updateData.Category;
+        originalRecipe.Title = updateData.Title?.Length > 0 ? updateData.Title : originalRecipe.Title;
+        originalRecipe.Instructions = updateData.Instructions?.Length > 0 ? updateData.Instructions : originalRecipe.Instructions;
+        originalRecipe.Img = updateData.Img?.Length > 0 ? updateData.Img : originalRecipe.Img;
+        originalRecipe.Category = updateData.Category?.Length > 0 ? updateData.Category : originalRecipe.Category;
         Recipes newRecipe = repo.EditRecipe(originalRecipe);
         return newRecipe;
     }

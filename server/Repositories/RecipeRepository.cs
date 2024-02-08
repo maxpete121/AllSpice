@@ -58,13 +58,12 @@ public class RecipeRepository(IDbConnection db){
     internal Recipes EditRecipe(Recipes updateData){
         string sql = @"
         UPDATE recipes SET
-        title = @Title,
-        instructions = @Instructions,
-        img = @Img,
-        category = @Category
+        title = @title,
+        instructions = @instructions,
+        img = @img,
+        category = @category
         WHERE id = @id;
 
-        
         SELECT
         recipes.*,
         accounts.*
