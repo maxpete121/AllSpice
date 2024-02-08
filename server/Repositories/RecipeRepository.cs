@@ -68,7 +68,7 @@ public class RecipeRepository(IDbConnection db){
         recipes.*,
         accounts.*
         FROM recipes
-        JOIN accounts ON recipes.creatorId = accounts.id ON DELETE CASCADE
+        JOIN accounts ON recipes.creatorId = accounts.id
         WHERE recipes.id = @id";
         Recipes recipes = db.Query<Recipes, Account, Recipes>(sql, (recipes, account)=>{
             recipes.Creator = account;

@@ -18,6 +18,14 @@ CREATE TABLE recipes(
   Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
+CREATE TABLE ingredients(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(40) NOT NULL,
+  quantity VARCHAR(50) NOT NULL,
+  recipeId INT,
+  Foreign Key (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
 DROP TABLE recipes;
 
         SELECT
@@ -41,3 +49,8 @@ DROP TABLE recipes;
         FROM recipes
         JOIN accounts ON recipes.creatorId = accounts.id
         WHERE recipes.id = 2
+
+        INSERT INTO ingredients
+        (name, quantity, recipeId)
+        VALUES
+        ("wow", "so cool", 5);
