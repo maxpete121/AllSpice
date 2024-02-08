@@ -1,7 +1,7 @@
 <template>
   <section class="container-fluid">
     <section class="row justify-content-center">
-      <div class="col-10 mt-2 d-flex main-card flex-column align-items-center p-4">
+      <div class="col-10 d-flex main-card flex-column align-items-center p-4">
         <div class="main-child text-center w-25 p-2">
           <h3>All Spice</h3>
           <h5>Cherish your family</h5>
@@ -10,17 +10,26 @@
       </div>
     </section>
     <section class="row justify-content-center">
-      <div class="col-2 d-flex select-bar p-2 justify-content-center mt-3">
-        <button class="btn btn-outline-dark">Home</button>
-        <button class="ms-lg-3 me-lg-3 btn btn-outline-dark">My Recipes</button>
-        <button class="btn btn-outline-dark">Favorite</button>
+      <div class="col-3 d-flex select-bar p-2 justify-content-center mt-3">
+        <div class="d-flex">
+          <button class="btn btn-outline-dark">Home</button>
+          <button class="ms-lg-3 me-lg-3 btn btn-outline-dark">My Recipes</button>
+          <button class="btn btn-outline-dark">Favorite</button>
+        </div>
       </div>
     </section>
-    <section class="row">
-      <div class="col-4" v-for="recipe in recipes">
+    <section class="row mt-4 justify-content-center">
+      <div class="col-3 mt-4 ms-1 me-1" v-for="recipe in recipes">
         <RecipeCard :recipe="recipe"/>
       </div>
     </section>
+    <div class="sticky-bottom row justify-content-end">
+      <div class="col-2 d-flex">
+        <div class="w-50">
+          <CreateCard/>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -29,7 +38,7 @@ import { computed, onMounted } from 'vue';
 import { recipeService } from '../services/RecipeService';
 import {AppState} from '../AppState'
 import RecipeCard from '../components/RecipeCard.vue';
-
+import CreateCard from '../components/CreateCard.vue';
 export default {
   setup() {
     onMounted(()=>{
@@ -42,7 +51,7 @@ export default {
     return {
       recipes: computed(()=> AppState.recipes)
     }
-  }, components: {RecipeCard}
+  }, components: {RecipeCard, CreateCard}
 }
 </script>
 

@@ -5,8 +5,8 @@
   <main>
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
+  <footer class="">
+     
   </footer>
 </template>
 
@@ -14,14 +14,14 @@
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
-
+import CreateCard from './components/CreateCard.vue'
 export default {
   setup() {
     return {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, CreateCard }
 }
 </script>
 <style lang="scss">

@@ -3,6 +3,7 @@
 
 export class Recipes{
     constructor(data){
+        this.id = data.id
         this.title = data.title
         this.instructions = data.instructions
         this.img = data.img
