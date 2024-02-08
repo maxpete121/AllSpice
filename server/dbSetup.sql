@@ -54,3 +54,11 @@ DROP TABLE recipes;
         (name, quantity, recipeId)
         VALUES
         ("wow", "so cool", 5);
+
+
+        SELECT
+        ingredients.*,
+        recipes.*
+        FROM ingredients
+        JOIN recipes ON ingredients.recipeId = recipes.id
+        WHERE ingredients.recipeId = 55

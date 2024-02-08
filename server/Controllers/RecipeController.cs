@@ -7,10 +7,12 @@ namespace RecipeApp.Controllers;
 
 public class RecipeController : ControllerBase{
     private readonly RecipeService recipeService;
+    private readonly IngredientService ingredientService;
     private readonly Auth0Provider auth;
-    public RecipeController(Auth0Provider auth, RecipeService recipeService){
+    public RecipeController(Auth0Provider auth, RecipeService recipeService, IngredientService ingredientService){
         this.auth = auth;
         this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
     [HttpPost]
@@ -84,6 +86,20 @@ public class RecipeController : ControllerBase{
         }
         catch (Exception error)
         {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpGet("{recipeId}/ingredients")]
+    public ActionResult<List<Ingredient>> GetIngredientById(int recipeId){
+        try
+        {
+            List<Ingredient> ingredients = ingredientService.GetIngredientById(recipeId);
+            return Ok(ingredients);
+        }
+        catch (Exception error)
+        {
+            
             return BadRequest(error.Message);
         }
     }

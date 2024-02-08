@@ -23,4 +23,25 @@ public class IngredientRepository(IDbConnection db){
         }, ingredientData).FirstOrDefault();
         return ingredient;
     }
+
+    internal List<Ingredient> GetIngredientById(int recipeId){
+        string sql = @"
+        SELECT
+        ingredients.*,
+        recipes.*
+        FROM ingredients
+        JOIN recipes ON ingredients.recipeId = recipes.id
+        WHERE ingredients.recipeId = @recipeId";
+        List<Ingredient> ingredient = db.Query<Ingredient, Recipes, Ingredient>(sql, (ingredient, recipe)=>{
+            return ingredient;
+        }, new{recipeId}).ToList();
+        return ingredient;
+    }
+
+    internal void  DeleteIngredient(int ingredientId){
+        string sql = @"
+        DELETE FROM ingredients
+        WHERE id = @ingredientId";
+        db.Execute(sql, new{ingredientId});
+    }
 }
