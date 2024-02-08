@@ -73,4 +73,18 @@ public class RecipeController : ControllerBase{
             return BadRequest(error.Message);
         }
     }
+
+    [HttpDelete("{recipeId}")]
+    [Authorize]
+    public ActionResult<string> RemoveRecipe(int recipeId){
+        try
+        {
+            string message = recipeService.RemoveRecipe(recipeId);
+            return Ok(message);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }

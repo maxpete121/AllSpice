@@ -68,13 +68,20 @@ public class RecipeRepository(IDbConnection db){
         recipes.*,
         accounts.*
         FROM recipes
-        JOIN accounts ON recipes.creatorId = accounts.id
+        JOIN accounts ON recipes.creatorId = accounts.id ON DELETE CASCADE
         WHERE recipes.id = @id";
         Recipes recipes = db.Query<Recipes, Account, Recipes>(sql, (recipes, account)=>{
             recipes.Creator = account;
             return recipes;
         }, updateData).FirstOrDefault();
         return recipes;
+    }
+
+    internal void RemoveRecipe(int recipeId){
+        string sql = @"
+        DELETE FROM recipes
+        WHERE id = @recipeId";
+        db.Execute(sql, new{recipeId});
     }
 }
 //   id INT AUTO_INCREMENT PRIMARY KEY,

@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.ObjectPool;
+
 namespace RecipeApp.Services;
 
 
@@ -16,6 +19,7 @@ public class RecipeService(RecipeRepository repo){
 
     internal Recipes GetRecipeById(int recipeId){
         Recipes recipes = repo.GetRecipeById(recipeId);
+        if(recipes == null) throw new Exception("No recipe found...");
         return recipes;
     }
 
@@ -27,5 +31,11 @@ public class RecipeService(RecipeRepository repo){
         originalRecipe.Category = updateData.Category?.Length > 0 ? updateData.Category : originalRecipe.Category;
         Recipes newRecipe = repo.EditRecipe(originalRecipe);
         return newRecipe;
+    }
+
+    internal string RemoveRecipe(int recipeId){
+        Recipes recipe = GetRecipeById(recipeId);
+        repo.RemoveRecipe(recipeId);
+        return $"{recipe.Title} removed";
     }
 }
