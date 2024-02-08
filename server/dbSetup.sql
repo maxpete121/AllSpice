@@ -19,3 +19,25 @@ CREATE TABLE recipes(
 ) default charset utf8 COMMENT '';
 
 DROP TABLE recipes;
+
+        SELECT
+        recipes.*,
+        accounts.*
+        FROM recipes
+        JOIN accounts ON recipes.creatorId = accounts.id
+        WHERE recipes.id = 2
+
+
+        UPDATE recipes SET
+        title = "yes",
+        instructions = "so cool",
+        img = "wow",
+        category = "Soup"
+        WHERE id = 2;
+
+        SELECT
+        recipes.*,
+        accounts.*
+        FROM recipes
+        JOIN accounts ON recipes.creatorId = accounts.id
+        WHERE recipes.id = 2

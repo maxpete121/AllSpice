@@ -13,4 +13,19 @@ public class RecipeService(RecipeRepository repo){
         List<Recipes> recipes = repo.GetRecipes();
         return recipes;
     }
+
+    internal Recipes GetRecipeById(int recipeId){
+        Recipes recipes = repo.GetRecipeById(recipeId);
+        return recipes;
+    }
+
+    internal Recipes EditRecipe(Recipes updateData, int recipeId){
+        Recipes originalRecipe = GetRecipeById(recipeId);
+        originalRecipe.Title ??= updateData.Title;
+        originalRecipe.Instructions ??= updateData.Instructions;
+        originalRecipe.Img ??= updateData.Img;
+        originalRecipe.Category ??= updateData.Category;
+        Recipes newRecipe = repo.EditRecipe(originalRecipe);
+        return newRecipe;
+    }
 }

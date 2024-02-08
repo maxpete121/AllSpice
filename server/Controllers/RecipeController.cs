@@ -43,4 +43,34 @@ public class RecipeController : ControllerBase{
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("{recipeId}")]
+    public ActionResult<Recipes> GetRecipeById(int recipeId){
+        try
+        {
+            Recipes recipes = recipeService.GetRecipeById(recipeId);
+            return Ok(recipes);
+        }
+        catch (Exception error)
+        {
+            
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpPut("{recipeId}")]
+    [Authorize]
+    public ActionResult<Recipes> EditRecipe([FromBody] Recipes updateData, int recipeId){
+        try
+        {
+            updateData.Id = recipeId;
+            Recipes newRecipes = recipeService.EditRecipe(updateData, recipeId);
+            return Ok(newRecipes);
+        }
+        catch (Exception error)
+        {
+            
+            return BadRequest(error.Message);
+        }
+    }
 }
