@@ -1,7 +1,8 @@
+using postItSharp.Models;
+
 namespace RecipeApp.Models;
 
-public class Recipes{
-    public int Id {get; set;}
+public class Recipes : RepoItem<int>{
     public string Title {get; set;}
     public string Instructions {get; set;}
     public string Img {get; set;}

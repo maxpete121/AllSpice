@@ -1,9 +1,10 @@
 
+using postItSharp.Models;
+
 namespace RecipeApp.Models;
 
 
-public class Ingredient{
-    public int Id {get; set;}
+public class Ingredient : RepoItem<int>{
     public string Name {get; set;}
     public string Quantity {get; set;}
     public int RecipeId {get; set;}

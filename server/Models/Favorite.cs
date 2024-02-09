@@ -1,8 +1,9 @@
+using postItSharp.Models;
+
 namespace RecipeApp.Models;
 
 
-public class Favorite{
-    public int Id {get; set;}
+public class Favorite : RepoItem<int>{
     public string AccountId {get; set;}
     public int RecipeId {get; set;}
 }

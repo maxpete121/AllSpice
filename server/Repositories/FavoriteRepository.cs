@@ -34,11 +34,18 @@ public class FavoriteRepository(IDbConnection db){
       JOIN recipes ON favorites.recipeId = recipes.id
       JOIN accounts ON recipes.creatorId = accounts.id
       WHERE favorites.accountId = @userId";
-    List<FavoriteRecipe> favorite = db.Query<FavoriteRecipe, Recipes, Account, FavoriteRecipe>(sql, (favorite, recipe, account)=>{
-        favorite.FavoriteId = favorite.Id;
-        favorite.Creator = account;
-        return favorite;
+    List<FavoriteRecipe> favorite = db.Query<FavoriteRecipe, Favorite, Account, FavoriteRecipe>(sql, (favoriteR, favorite, account)=>{
+        favoriteR.FavoriteId = favorite.Id;
+        favoriteR.Creator = account;
+        return favoriteR;
     }, new{userId}).ToList();
     return favorite;
+    }
+
+    internal void DeleteFavorite(string favoriteToDeleteId){
+      string sql = @"
+        DELETE FROM favorites
+        WHERE id = @favoriteToDeleteId";
+        db.Execute(sql, new{favoriteToDeleteId});
     }
 }

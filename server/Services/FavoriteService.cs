@@ -13,4 +13,9 @@ public class FavoriteService(FavoriteRepository repo){
         List<FavoriteRecipe> favorite = repo.GetAccountFavorites(userId);
         return favorite;
     }
+
+    internal string DeleteFavorite(string favoriteToDeleteId){
+        repo.DeleteFavorite(favoriteToDeleteId);
+        return "Removed from favorites.";
+    }
 }
