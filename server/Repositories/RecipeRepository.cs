@@ -83,6 +83,16 @@ public class RecipeRepository(IDbConnection db){
         WHERE id = @recipeId";
         db.Execute(sql, new{recipeId});
     }
+
+    internal List<Recipes> GetAccountRecipes(string userId){
+        string sql = @"
+        SELECT
+        *
+        FROM recipes
+        WHERE creatorId = @userId";
+        List<Recipes> recipe = db.Query<Recipes>(sql, new{userId}).ToList();
+        return recipe;
+    }
 }
 //   id INT AUTO_INCREMENT PRIMARY KEY,
 //   title VARCHAR(40) NOT NULL,

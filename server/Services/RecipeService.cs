@@ -42,4 +42,10 @@ public class RecipeService(RecipeRepository repo){
             throw new Exception("You can only delete things you own!");
         }
     }
+
+    internal List<Recipes>  GetAccountRecipes(string userId){
+        if(userId == null) throw new Exception("Please log in.");
+        List<Recipes> recipes = repo.GetAccountRecipes(userId);
+        return recipes;
+    }
 }
