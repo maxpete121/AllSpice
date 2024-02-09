@@ -23,11 +23,7 @@
         <RecipeCard :recipe="recipe"/>
       </div>
     </section>
-    <div class="sticky-bottom row justify-content-end">
-      <div class="col-2 d-flex">
           <CreateCard/>
-      </div>
-    </div>
   </section>
 </template>
 
