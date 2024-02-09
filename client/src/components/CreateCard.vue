@@ -12,7 +12,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body d-flex justify-content-center">
-            <form action="" class="d-flex flex-column align-items-center">
+            <form @submit.prevent="postRecipe()" class="d-flex flex-column align-items-center">
               <div class="w-75 text-center">
                 <label for="">Recipe Title...</label>
                 <input v-model="newRecipeData.Title" class="form-control" maxlength="40" type="text" required>
@@ -36,9 +36,9 @@
               </div>
               <div class="mt-2 d-flex flex-column text-center">
                 <label for="">Instructions...</label>
-                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="55" rows="4"></textarea>
+                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="55" rows="4" required></textarea>
               </div>
-              <button type="button" class="btn btn-secondary mt-2">Create!</button>
+              <button class="btn btn-secondary mt-2">Create!</button>
             </form>
           </div>
           <div class="modal-footer">
@@ -53,11 +53,17 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, ref, onMounted } from 'vue';
+import {recipeService} from '../services/RecipeService.js'
 export default {
     setup(){
       let newRecipeData = ref({})
+      async function postRecipe(){
+        await recipeService.postRecipe(newRecipeData.value)
+        newRecipeData.value = {}
+      }
     return { 
       newRecipeData,
+      postRecipe
      }
     }
 };

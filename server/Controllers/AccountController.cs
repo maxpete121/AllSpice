@@ -51,11 +51,11 @@ public class AccountController : ControllerBase
   [HttpGet("recipes")]
   [Authorize]
 
-  public async Task<ActionResult<List<Recipes>>> GetAccountRecipes(string userId){
+  public async Task<ActionResult<List<Recipes>>> GetAccountRecipes(){
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      List<Recipes> recipes = _recipeService.GetAccountRecipes(userId);
+      List<Recipes> recipes = _recipeService.GetAccountRecipes(userInfo.Id);
       return Ok(recipes);
     }
     catch (System.Exception)

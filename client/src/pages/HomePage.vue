@@ -12,9 +12,9 @@
     <section class="row justify-content-center">
       <div class="col-3 d-flex select-bar p-2 justify-content-center mt-3">
         <div class="d-flex">
-          <button class="btn btn-outline-dark">Home</button>
-          <button class="ms-lg-3 me-lg-3 btn btn-outline-dark">My Recipes</button>
-          <button class="btn btn-outline-dark">Favorite</button>
+          <button class="btn btn-success button-s">Home</button>
+          <button @click="getMyRecipes()" class="ms-lg-3 me-lg-3 btn btn-success button-s">My Recipes</button>
+          <button class="btn btn-success button-s">Favorite</button>
         </div>
       </div>
     </section>
@@ -42,8 +42,13 @@ export default {
     async function getRecipes(){
       await recipeService.getRecipes()
     }
+
+    async function getMyRecipes(){
+      await recipeService.getMyRecipes()
+    }
     return {
-      recipes: computed(()=> AppState.recipes)
+      recipes: computed(()=> AppState.recipes),
+      getMyRecipes
     }
   }, components: {RecipeCard, CreateCard}
 }
@@ -65,10 +70,14 @@ export default {
 }
 
 .select-bar{
-  background-color: rgb(225, 225, 225);
+  background-color: whitesmoke;
   border-radius: 15px;
   outline: solid 1px black;
   box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.633);
+}
+
+.button-s{
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.605);
 }
 .home {
   display: grid;
