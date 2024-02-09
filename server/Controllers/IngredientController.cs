@@ -28,10 +28,11 @@ public class IngredientController : ControllerBase{
     }
     [HttpDelete("{ingredientId}")]
     [Authorize]
-    public ActionResult<string> DeleteIngredient(int ingredientId){
+    public async Task<ActionResult<string>> DeleteIngredient(int ingredientId){
         try
         {
-            string message = ingredientService.DeleteIngredient(ingredientId);
+            Account userInfo = await auth.GetUserInfoAsync<Account>(HttpContext);
+            string message = ingredientService.DeleteIngredient(ingredientId, userInfo.Id);
             return Ok(message);
         }
         catch (Exception error)

@@ -33,9 +33,13 @@ public class RecipeService(RecipeRepository repo){
         return newRecipe;
     }
 
-    internal string RemoveRecipe(int recipeId){
+    internal string RemoveRecipe(int recipeId, string userId){
         Recipes recipe = GetRecipeById(recipeId);
+        if(recipe.CreatorId == userId){
         repo.RemoveRecipe(recipeId);
         return $"{recipe.Title} removed";
+        }else{
+            throw new Exception("You can only delete things you own!");
+        }
     }
 }

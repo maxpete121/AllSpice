@@ -78,10 +78,11 @@ public class RecipeController : ControllerBase{
 
     [HttpDelete("{recipeId}")]
     [Authorize]
-    public ActionResult<string> RemoveRecipe(int recipeId){
+    public async Task<ActionResult<string>> RemoveRecipe(int recipeId){
         try
         {
-            string message = recipeService.RemoveRecipe(recipeId);
+            Account userInfo = await auth.GetUserInfoAsync<Account>(HttpContext);
+            string message = recipeService.RemoveRecipe(recipeId, userInfo.Id);
             return Ok(message);
         }
         catch (Exception error)

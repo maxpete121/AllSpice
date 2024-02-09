@@ -70,3 +70,8 @@ DROP TABLE recipes;
         FROM ingredients
         JOIN recipes ON ingredients.recipeId = recipes.id
         WHERE ingredients.recipeId = 55
+
+        SELECT
+        *
+        FROM ingredients
+        WHERE id = 5

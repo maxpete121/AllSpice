@@ -15,7 +15,14 @@ public class IngredientService(IngredientRepository repo){
         return ingredients;
     }
 
-    internal string DeleteIngredient(int ingredientId){
+    internal Ingredient GetOneIngredientById(int ingredientId){
+        Ingredient ingredient = repo.GetOneIngredientById(ingredientId);
+        return ingredient;
+    }
+
+    internal string DeleteIngredient(int ingredientId, string userId){
+        if(userId == null) throw new Exception("Please log in.");
+        Ingredient ingredient = GetOneIngredientById(ingredientId);
         repo.DeleteIngredient(ingredientId);
         return "Ingredient Removed";
     }

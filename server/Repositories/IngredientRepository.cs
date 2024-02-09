@@ -38,6 +38,17 @@ public class IngredientRepository(IDbConnection db){
         return ingredient;
     }
 
+    internal Ingredient GetOneIngredientById(int ingredientId){
+        string sql =@"
+        SELECT
+        *
+        FROM ingredients
+        WHERE id = @ingredientId
+        ";
+        Ingredient ingredient = db.Query<Ingredient>(sql, new{ingredientId}).FirstOrDefault();
+        return ingredient;
+    }
+
     internal void  DeleteIngredient(int ingredientId){
         string sql = @"
         DELETE FROM ingredients
