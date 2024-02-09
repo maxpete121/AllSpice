@@ -9,3 +9,6 @@ public class Recipes{
     public string CreatorId {get; set;}
     public Account Creator {get; set;}
 }
+public class FavoriteRecipe : Recipes{
+  public int FavoriteId { get; set; }
+}

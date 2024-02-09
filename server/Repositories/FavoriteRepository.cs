@@ -12,15 +12,32 @@ public class FavoriteRepository(IDbConnection db){
       (@accountId, @recipeId);
 
       SELECT
-        favorites.*,
-        accounts.*
-      FROM collaborators
-      JOIN accounts ON favorites.accountId = accounts.id
+     favorites.*,
+     recipes.*
+      FROM favorites
+      JOIN recipes ON favorites.recipeId = @recipeId
       WHERE favorites.id = LAST_INSERT_ID()";
-      Favorite favorite = db.Query<Favorite, Account, Favorite>(sql, (favorite, account)=>{
-        favorite.RecipeId = newData.Id;
+      Favorite favorite = db.Query<Favorite, Recipes, Favorite>(sql, (favorite, recipe)=>{
+        favorite.AccountId = recipe.CreatorId;
         return favorite;
       }, newData).FirstOrDefault();
       return favorite;
+    }
+
+    internal List<FavoriteRecipe> GetAccountFavorites(string userId){
+        string sql = @"
+      SELECT
+     recipes.*,
+     favorites.*,
+     accounts.*
+      FROM favorites
+      JOIN recipes ON favorites.recipeId = recipes.id
+      JOIN accounts ON recipes.creatorId = accounts.id
+      WHERE favorites.accountId = @userId";
+    List<FavoriteRecipe> favorite = db.Query<FavoriteRecipe, Recipes, Account, FavoriteRecipe>(sql, (favorite, recipe, account)=>{
+        favorite.Creator = account;
+        return favorite;
+    }, new{userId}).ToList();
+    return favorite;
     }
 }

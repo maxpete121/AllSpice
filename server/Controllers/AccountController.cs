@@ -6,11 +6,13 @@ public class AccountController : ControllerBase
 {
   private readonly AccountService _accountService;
   private readonly Auth0Provider _auth0Provider;
+  private readonly FavoriteService _favoriteService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider)
+  public AccountController(AccountService accountService, Auth0Provider auth0Provider, FavoriteService favoriteService)
   {
     _accountService = accountService;
     _auth0Provider = auth0Provider;
+    _favoriteService = favoriteService;
   }
 
   [HttpGet]
@@ -21,6 +23,22 @@ public class AccountController : ControllerBase
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       return Ok(_accountService.GetOrCreateProfile(userInfo));
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpGet("favorites")]
+  [Authorize]
+  public async Task<ActionResult<List<FavoriteRecipe>>> GetAccountFavorites(){
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      string userId = userInfo.Id;
+      List<FavoriteRecipe> favorite = _favoriteService.GetAccountFavorites(userId);
+      return Ok(favorite);
     }
     catch (Exception e)
     {

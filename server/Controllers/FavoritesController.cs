@@ -1,5 +1,7 @@
 namespace RecipeApp.Controllers;
 
+[ApiController]
+[Route("api/favorites")]
 
 public class FavoritesController : ControllerBase{
     private readonly FavoriteService favoriteService;
@@ -16,7 +18,8 @@ public class FavoritesController : ControllerBase{
         try
         {
             Account userInfo = await auth.GetUserInfoAsync<Account>(HttpContext);
-            Favorite favorite = favoriteService.CreateFavorite(newData, userInfo.Id);
+            newData.AccountId = userInfo.Id;
+            Favorite favorite = favoriteService.CreateFavorite(newData);
             return Ok(favorite);
         }
         catch (Exception error)
