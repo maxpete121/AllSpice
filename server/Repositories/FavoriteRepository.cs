@@ -35,6 +35,7 @@ public class FavoriteRepository(IDbConnection db){
       JOIN accounts ON recipes.creatorId = accounts.id
       WHERE favorites.accountId = @userId";
     List<FavoriteRecipe> favorite = db.Query<FavoriteRecipe, Recipes, Account, FavoriteRecipe>(sql, (favorite, recipe, account)=>{
+        favorite.FavoriteId = favorite.Id;
         favorite.Creator = account;
         return favorite;
     }, new{userId}).ToList();
