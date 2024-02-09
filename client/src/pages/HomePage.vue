@@ -25,9 +25,7 @@
     </section>
     <div class="sticky-bottom row justify-content-end">
       <div class="col-2 d-flex">
-        <div class="w-50">
           <CreateCard/>
-        </div>
       </div>
     </div>
   </section>

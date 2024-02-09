@@ -1,8 +1,7 @@
 <template>
-    <div type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle bg-success create-card p-2 sticky-bottom text-center mb-2">
-        <i class="mdi mdi-plus add-button"></i>
-    </div>
-    <div>
+      <div type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle bg-success create-card p-2 sticky-bottom text-center mb-2">
+          <i class="mdi mdi-plus add-button"></i>
+      </div>
         <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -19,7 +18,6 @@
           </div>
         </div>
       </div>
-    </div>
     </div>
 </template>
 

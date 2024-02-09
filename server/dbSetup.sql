@@ -26,6 +26,14 @@ CREATE TABLE ingredients(
   Foreign Key (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
+CREATE TABLE favorites(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  accountId VARCHAR(255) NOT NULL,
+  recipeId int NOT NULL,
+  Foreign Key (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+  Foreign Key (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
 DROP TABLE recipes;
 
         SELECT
