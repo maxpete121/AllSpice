@@ -12,7 +12,7 @@
     <section class="row justify-content-center">
       <div class="col-3 d-flex select-bar p-2 justify-content-center mt-3">
         <div class="d-flex">
-          <button class="btn btn-success button-s">Home</button>
+          <button @click="getRecipes()" class="btn btn-success button-s">Home</button>
           <button @click="getMyRecipes()" class="ms-lg-3 me-lg-3 btn btn-success button-s">My Recipes</button>
           <button class="btn btn-success button-s">Favorite</button>
         </div>
@@ -48,7 +48,8 @@ export default {
     }
     return {
       recipes: computed(()=> AppState.recipes),
-      getMyRecipes
+      getMyRecipes,
+      getRecipes
     }
   }, components: {RecipeCard, CreateCard}
 }

@@ -1,5 +1,5 @@
 <template>
-  <div title="Create new recipe!" class="sticky-bottom d-flex justify-content-end me-4">
+  <div title="Create new recipe!" class="sticky-bottom sticky-top d-flex justify-content-end me-4 mb-2">
     <div type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle create-card bg-success p-2 sticky-bottom text-center mb-2 me-4">
         <i class="mdi mdi-plus add-button"></i>
     </div>
@@ -7,7 +7,7 @@
         <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header text-center">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Create a new recipe...</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>

@@ -1,8 +1,13 @@
 <template>
     <div type="button" data-bs-toggle="modal" :data-bs-target="target" :style="bgPic" class="recipe-card-home d-flex flex-column justify-content-end" :title="recipe.title">
-        <div class="text-dark recipe-card-child p-2">
-            <h5>{{ recipe.title }}</h5>
-            <h6>{{ recipe.category }}</h6>
+      <div class="text-dark recipe-card-child p-2 d-flex justify-content-between">
+        <div class="">
+          <h5>{{ recipe.title }}</h5>
+          <h6>{{ recipe.category }}</h6>
+        </div>
+          <div v-if="recipe.creatorId == account.id && account" class="">
+            <button @click="DeleteRecipe()" class="btn btn-danger"><i class="mdi mdi-delete"></i></button>
+          </div>
         </div>
     </div>
     <!-- Button trigger modal -->
@@ -32,10 +37,20 @@
 import { AppState } from '../AppState';
 import { computed, ref, onMounted } from 'vue';
 import { Recipes } from '../models/Recipes';
+import {recipeService} from '../services/RecipeService.js'
+import Pop from '../utils/Pop';
 export default {
     props: {recipe: {type: Recipes, required: true}},
     setup(props){
+      async function DeleteRecipe(){
+        if(window.confirm(`Would you like to delete ${props.recipe.title}`)){
+          let message = await recipeService.DeleteRecipe(props.recipe.id)
+          Pop.success(`${message}`)
+        }
+      }
     return { 
+      DeleteRecipe,
+      account: computed(()=> AppState.account),
         bgPic: computed(()=>{
             let string = `background-image: url(${props.recipe.img}); background-size: cover; background-position: center;`
             return string
@@ -60,20 +75,22 @@ export default {
 
 <style lang="scss" scoped>
 .recipe-card-home{
-    outline: solid 2px black;
+    outline: solid 1px black;
     height: 280px;
     background-position: center;
     background-size: cover;
     border-radius: 5px;
     box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
 }
 
 .recipe-card-home:hover{
-    outline: solid 2px black;
+    outline: solid 1px black;
     height: 280px;
     background-position: center;
     background-size: cover;
     transform: scale(1.02);
+    overflow: hidden;
     cursor: pointer;
     border-radius: 5px;
 }
