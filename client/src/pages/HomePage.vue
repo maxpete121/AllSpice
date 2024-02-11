@@ -14,7 +14,7 @@
         <div class="d-flex">
           <button @click="getRecipes()" class="btn btn-success button-s">Home</button>
           <button @click="getMyRecipes()" class="ms-lg-3 me-lg-3 btn btn-success button-s">My Recipes</button>
-          <button class="btn btn-success button-s">Favorite</button>
+          <button @click="getFavorites()" class="btn btn-success button-s">Favorite</button>
         </div>
       </div>
     </section>
@@ -33,6 +33,7 @@ import { recipeService } from '../services/RecipeService';
 import {AppState} from '../AppState'
 import RecipeCard from '../components/RecipeCard.vue';
 import CreateCard from '../components/CreateCard.vue';
+import { favoriteService } from '../services/FavoriteService';
 export default {
   setup() {
     onMounted(()=>{
@@ -46,10 +47,17 @@ export default {
     async function getMyRecipes(){
       await recipeService.getMyRecipes()
     }
+
+    async function getFavorites(){
+      await favoriteService.getFavorites()
+    }
+
+
     return {
       recipes: computed(()=> AppState.recipes),
       getMyRecipes,
-      getRecipes
+      getRecipes,
+      getFavorites
     }
   }, components: {RecipeCard, CreateCard}
 }

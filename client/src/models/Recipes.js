@@ -9,7 +9,8 @@ export class Recipes{
         this.img = data.img
         this.category = data.category
         this.creatorId = data.creatorId
-        this.creator = data.creators
+        this.creator = data.creator
+        this.favoriteId = data.favoriteId || "0"
     }
 }
 
