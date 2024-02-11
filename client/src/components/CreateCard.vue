@@ -1,6 +1,6 @@
 <template>
-  <div title="Create new recipe!" class="sticky-bottom sticky-top d-flex justify-content-end me-4 mb-2">
-    <div type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle create-card bg-success p-2 sticky-bottom text-center mb-2 me-4">
+  <div class="sticky-bottom sticky-top d-flex justify-content-start me-4 mb-2 w-25">
+    <div title="Create new recipe!" type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle create-card bg-success p-2 sticky-bottom text-center mb-2 me-4">
         <i class="mdi mdi-plus add-button"></i>
     </div>
   </div>

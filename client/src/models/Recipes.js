@@ -10,7 +10,7 @@ export class Recipes{
         this.category = data.category
         this.creatorId = data.creatorId
         this.creator = data.creator
-        this.favoriteId = data.favoriteId || "0"
+        this.favoriteId = data.favoriteId || 0
     }
 }
 

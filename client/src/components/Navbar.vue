@@ -7,6 +7,9 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
+          <router-link :to="{ name: 'Home' }">
+            <i class="mdi mdi-home fs-1 text-success"></i>
+          </router-link>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->

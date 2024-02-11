@@ -1,13 +1,16 @@
 <template>
-  <div type="button" data-bs-toggle="modal" :data-bs-target="target" :style="bgPic"
-    class="recipe-card-home d-flex flex-column justify-content-end" :title="recipe.title">
+  <div :style="bgPic" class="recipe-card-home d-flex flex-column justify-content-between" :title="recipe.title">
+    <div class="mt-1 ms-1">
+      <button type="button" data-bs-toggle="modal" :data-bs-target="target" class="btn btn-success">See recipe...</button>
+    </div>
     <div class="text-dark recipe-card-child p-2 d-flex justify-content-between">
       <div class="">
         <h5>{{ recipe.title }}</h5>
         <h6>{{ recipe.category }}</h6>
       </div>
-      <div v-if="recipe.creatorId == account.id && account" class="">
-        <button @click="DeleteRecipe()" class="btn btn-danger"><i class="mdi mdi-delete"></i></button>
+      <div class="">
+        <button v-if="recipe.favoriteId > 0" @click="removeFavorite()" class="btn btn-secondary me-2">Remove</button>
+        <button v-if="recipe.creatorId == account.id && account" @click="DeleteRecipe()" class="btn btn-danger"><i class="mdi mdi-delete"></i></button>
       </div>
     </div>
   </div>
@@ -25,7 +28,7 @@
           <h6 class="ms-3">{{ recipe.instructions }}</h6>
         </div>
         <div class="modal-footer">
-          <button @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
+          <button v-if="recipe.favoriteId == 0" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
@@ -54,11 +57,18 @@ export default {
     async function postNewFavorite() {
       let newFavoriteData = {"RecipeId": props.recipe.id}
       let addedFavorite = await favoriteService.postNewFavorite(newFavoriteData)
-      Pop.success(`Success`)
+      Pop.success(`Success adding ${addedFavorite.title} to favorites`)
+    }
+
+    async function removeFavorite(){
+      if (window.confirm(`Would you like to remove ${props.recipe.title} from your favorites?`)) {
+        let removedFavorite = await favoriteService.removeFavorite(props.recipe.favoriteId)
+      }
     }
     return {
       DeleteRecipe,
       postNewFavorite,
+      removeFavorite,
       account: computed(() => AppState.account),
       bgPic: computed(() => {
         let string = `background-image: url(${props.recipe.img}); background-size: cover; background-position: center;`
@@ -100,7 +110,6 @@ export default {
   background-size: cover;
   transform: scale(1.02);
   overflow: hidden;
-  cursor: pointer;
   border-radius: 5px;
 }
 

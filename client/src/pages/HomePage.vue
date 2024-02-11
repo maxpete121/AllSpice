@@ -1,8 +1,8 @@
 <template>
   <section class="container-fluid">
     <section class="row justify-content-center">
-      <div class="col-10 d-flex main-card flex-column align-items-center p-4">
-        <div class="main-child text-center w-25 p-2">
+      <div class="col-lg-10 col-12 d-flex main-card flex-column align-items-center p-4">
+        <div class="main-child text-center w-50 p-2">
           <h3>All Spice</h3>
           <h5>Cherish your family</h5>
           <h5>and their cooking!</h5>
@@ -10,16 +10,16 @@
       </div>
     </section>
     <section class="row justify-content-center">
-      <div class="col-3 d-flex select-bar p-2 justify-content-center mt-3">
+      <div class="col-lg-3 col-10 d-flex select-bar p-2 justify-content-center mt-3">
         <div class="d-flex">
           <button @click="getRecipes()" class="btn btn-success button-s">Home</button>
-          <button @click="getMyRecipes()" class="ms-lg-3 me-lg-3 btn btn-success button-s">My Recipes</button>
+          <button @click="getMyRecipes()" class="ms-3 me-3 btn btn-success button-s">My Recipes</button>
           <button @click="getFavorites()" class="btn btn-success button-s">Favorite</button>
         </div>
       </div>
     </section>
     <section class="row mt-4 justify-content-center">
-      <div class="col-3 mt-4 ms-1 me-1" v-for="recipe in recipes">
+      <div class="col-lg-3 col-10 mt-4 ms-1 me-1" v-for="recipe in recipes">
         <RecipeCard :recipe="recipe"/>
       </div>
     </section>
