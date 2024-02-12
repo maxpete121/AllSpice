@@ -29,15 +29,16 @@
               <img class="img-fluid img-resize" :src="recipe.img" alt="image of food.">
             </div>
             <div class="w-50 text-center d-flex flex-column justify-content-between p-2 recipe-info">
-              <div>
+              <div v-if="recipe.creatorId !== account.id">
                 <h4 class="text-success fst-italic">Instructions</h4>
                 <h6 class="ms-3">{{ recipe.instructions }}</h6>
               </div>
-              <form @submit.prevent="editInstructions()" v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-3 ps-4 pe-4">
-                <label for="">Edit Instructions</label>
-                <textarea v-model="recipeUpdateData.instructions" class="form-control" name="" id="" cols="25" rows="3">{{ recipe.instructions }}</textarea>
+              <form v-else-if="recipe.creatorId == account.id" @submit.prevent="editInstructions()" v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-3 ps-4 pe-4">
+                <h4 class="text-success fst-italic">Instructions</h4>
+                <textarea v-model="recipeUpdateData.instructions" class="form-control" name="" id="" cols="25" rows="5" required></textarea>
                 <div class="mt-2">
-                  <button class="btn btn-outline-success">Change</button>
+                  <button class="btn btn-outline-success me-2">Save</button>
+                  <button @click="clearInstructions()" type="button" class="btn btn-outline-danger">Clear</button>
                 </div>
               </form>
             </div>
@@ -59,7 +60,7 @@
               </div>
               <div></div>
             </div>
-            <div class="w-50 recipe-info-s pb-4 pt-2 ps-3 pe-3">
+            <div class="w-50 recipe-info-s pb-4 pt-2 ps-3 pe-3 mt-2">
               <div class="text-center">
                 <h3 class="text-success fst-italic">Ingredients</h3>
               </div>
@@ -93,7 +94,7 @@ export default {
   props: { recipe: { type: Recipes, required: true } },
   setup(props) {
     let ingredientData = ref({})
-    let recipeUpdateData = ref({})
+    let recipeUpdateData = ref({instructions: props.recipe.instructions})
     async function DeleteRecipe() {
       if (window.confirm(`Would you like to delete ${props.recipe.title}`)) {
         let message = await recipeService.DeleteRecipe(props.recipe.id)
@@ -120,10 +121,18 @@ export default {
 
     async function editInstructions(){
       await recipeService.editInstructions(recipeUpdateData.value, props.recipe.id)
-      recipeUpdateData.value = {}
+      recipeUpdateData.value = {instructions: props.recipe.instructions}
+      Pop.success(`${props.recipe.title} instructions saved!`)
+    }
+
+    async function clearInstructions(){
+      if(window.confirm('Are you sure you want to clear all instructions?')){
+        recipeUpdateData.value = {}
+      }
     }
 
     async function getIngredients(){
+      recipeUpdateData.value = {instructions: props.recipe.instructions}
       await ingredientsService.getIngredients(props.recipe.id)
     }
 
@@ -138,12 +147,13 @@ export default {
       getIngredients,
       setActiveRecipe,
       editInstructions,
+      clearInstructions,
       recipeUpdateData,
       account: computed(() => AppState.account),
       ingredients: computed(()=> AppState.ingredients),
       ingredientData,
       bgPic: computed(() => {
-        let string = `background-image: url(${props.recipe.img}); background-size: cover; background-position: center;`
+        let string = `background-image: url('${props.recipe.img}'); background-size: cover; background-position: center;`
         return string
       }),
       target: computed(() => {
@@ -188,7 +198,7 @@ export default {
 
 .recipe-card-child {
   backdrop-filter: blur(11px);
-  background-color: rgba(255, 255, 255, 0.378);
+  background-color: rgba(255, 255, 255, 0.447);
 }
 
 .recipe-info{

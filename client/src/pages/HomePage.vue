@@ -80,7 +80,7 @@ export default {
 .select-bar{
   background-color: whitesmoke;
   border-radius: 15px;
-  outline: solid 1px black;
+  outline: solid 1px #009f6f;
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.437);
 }
 

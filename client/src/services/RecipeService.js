@@ -9,7 +9,7 @@ class RecipeService{
     async getRecipes(){
         let response = await api.get('api/recipes')
         let allRecipes = await response.data.map(recipe => new Recipes(recipe))
-        AppState.recipes = allRecipes.reverse()
+        AppState.recipes = allRecipes
     }
 
     async postRecipe(recipeData){
