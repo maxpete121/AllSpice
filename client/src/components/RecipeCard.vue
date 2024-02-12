@@ -1,7 +1,7 @@
 <template>
   <div :style="bgPic" class="recipe-card-home d-flex flex-column justify-content-between" :title="recipe.title">
     <div class="mt-1 ms-1">
-      <button type="button" data-bs-toggle="modal" :data-bs-target="target" class="btn btn-success">See recipe...</button>
+      <button @click="getIngredients()" type="button" data-bs-toggle="modal" :data-bs-target="target" class="btn btn-success">See recipe...</button>
     </div>
     <div class="text-dark recipe-card-child p-2 d-flex justify-content-between">
       <div class="">
@@ -17,15 +17,48 @@
   <!-- Button trigger modal -->
   <!-- Modal -->
   <div class="modal fade" :id="catchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">{{ recipe.title }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body d-flex">
-          <img class="img-fluid img-resize" :src="recipe.img" alt="image of food.">
-          <h6 class="ms-3">{{ recipe.instructions }}</h6>
+        <div class="modal-body">
+          <div class="d-flex">
+            <div class="w-50 text-center">
+              <img class="img-fluid img-resize" :src="recipe.img" alt="image of food.">
+            </div>
+            <div class="w-50 text-center">
+              <h4>Instructions</h4>
+              <h6 class="ms-3">{{ recipe.instructions }}</h6>
+            </div>
+          </div>
+          <div class="d-flex mt-2">
+            <div v-if="recipe.creatorId == account.id" class="w-50 text-center">
+              <div class="d-flex justify-content-center mt-2">
+                <h4 class="text-success">Add New Ingredient</h4>
+              </div>
+              <div id="ingredient-form" class="d-flex justify-content-center">
+                <form @submit.prevent="postIngredient()" class="mt-1 w-75">
+                  <label for="">Name</label>
+                  <input v-model="ingredientData.name" required maxlength="50" type="text" class="form-control">
+                  <label for="">How much?</label>
+                  <input v-model="ingredientData.quantity" required maxlength="50" type="text" class="form-control">
+                  <button class="btn btn-outline-success mt-2">Add</button>
+                  <button type="button" class="btn btn-outline-success mt-2 ms-2">Close</button>
+                </form>
+              </div>
+              <div></div>
+            </div>
+            <div class="w-50">
+              <div class="text-center">
+                <h3>Ingredients</h3>
+              </div>
+              <div v-for="ingredient in ingredients">
+                <IngredientCard :ingredient="ingredient"/>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button v-if="recipe.favoriteId == 0" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
@@ -44,9 +77,12 @@ import { Recipes } from '../models/Recipes';
 import { recipeService } from '../services/RecipeService.js'
 import Pop from '../utils/Pop';
 import { favoriteService } from '../services/FavoriteService';
+import { ingredientsService } from '../services/IngredientsService';
+import IngredientCard from './IngredientCard.vue';
 export default {
   props: { recipe: { type: Recipes, required: true } },
   setup(props) {
+    let ingredientData = ref({})
     async function DeleteRecipe() {
       if (window.confirm(`Would you like to delete ${props.recipe.title}`)) {
         let message = await recipeService.DeleteRecipe(props.recipe.id)
@@ -65,11 +101,24 @@ export default {
         let removedFavorite = await favoriteService.removeFavorite(props.recipe.favoriteId)
       }
     }
+    async function postIngredient(){
+      ingredientData.value.recipeId = props.recipe.id
+      await ingredientsService.postIngredient(ingredientData.value)
+      ingredientData.value = {}
+    }
+
+    async function getIngredients(){
+      await ingredientsService.getIngredients(props.recipe.id)
+    }
     return {
       DeleteRecipe,
       postNewFavorite,
       removeFavorite,
+      postIngredient,
+      getIngredients,
       account: computed(() => AppState.account),
+      ingredients: computed(()=> AppState.ingredients),
+      ingredientData,
       bgPic: computed(() => {
         let string = `background-image: url(${props.recipe.img}); background-size: cover; background-position: center;`
         return string
@@ -87,24 +136,24 @@ export default {
         return newId
       })
     }
-  }
+  }, components: { IngredientCard }
 };
 </script>
 
 
 <style lang="scss" scoped>
 .recipe-card-home {
-  outline: solid 1px black;
+  // outline: solid 1px black;
   height: 280px;
   background-position: center;
   background-size: cover;
   border-radius: 5px;
-  box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.7);
+  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.481);
   overflow: hidden;
 }
 
 .recipe-card-home:hover {
-  outline: solid 1px black;
+  // outline: solid 1px black;
   height: 280px;
   background-position: center;
   background-size: cover;
@@ -118,6 +167,7 @@ export default {
 }
 
 .img-resize {
-  height: 200px;
+  height: 270px;
+  box-shadow: -4px 4px 5px rgba(0, 0, 0, 0.577);
 }
 </style>

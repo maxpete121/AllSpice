@@ -34,6 +34,7 @@ import {AppState} from '../AppState'
 import RecipeCard from '../components/RecipeCard.vue';
 import CreateCard from '../components/CreateCard.vue';
 import { favoriteService } from '../services/FavoriteService';
+import {ingredientsService} from '../services/IngredientsService.js'
 export default {
   setup() {
     onMounted(()=>{
@@ -51,8 +52,6 @@ export default {
     async function getFavorites(){
       await favoriteService.getFavorites()
     }
-
-
     return {
       recipes: computed(()=> AppState.recipes),
       getMyRecipes,
