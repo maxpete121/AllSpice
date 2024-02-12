@@ -1,4 +1,4 @@
-namespace postItSharp.Models;
+namespace RecipeApp.Models;
 
 
 public abstract class RepoItem<TId>{

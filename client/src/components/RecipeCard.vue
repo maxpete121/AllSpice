@@ -59,7 +59,7 @@
               </div>
               <div></div>
             </div>
-            <div class="w-50">
+            <div class="w-50 recipe-info pb-4 pt-2 ps-3 pe-3">
               <div class="text-center">
                 <h3 class="text-success fst-italic">Ingredients</h3>
               </div>

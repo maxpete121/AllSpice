@@ -1,5 +1,5 @@
 
-using postItSharp.Models;
+using RecipeApp.Models;
 
 namespace RecipeApp.Models;
 

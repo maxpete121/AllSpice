@@ -1,7 +1,7 @@
 <template>
     <div class="search-box">
         <form action="" class="d-flex align-items-center">
-            <input class="search-bar" type="text">
+            <input class="search-bar" type="text" required maxlength="40">
             <button class="search-button">Search</button>
         </form>
     </div>
@@ -25,7 +25,7 @@ export default {
     all: unset;
     border-bottom-left-radius: 12px;
     border-top-left-radius: 12px;
-    height: 27px;
+    height: 28px;
     padding: 5px;
     padding-left: 8px;
     background-color: rgb(235, 235, 235);
@@ -36,7 +36,7 @@ export default {
     all: unset;
     border-bottom-left-radius: 12px;
     border-top-left-radius: 12px;
-    height: 25px;
+    height: 22px;
     padding: 5px;
     padding-left: 8px;
     background-color: rgb(235, 235, 235);
