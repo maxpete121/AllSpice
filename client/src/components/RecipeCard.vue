@@ -56,6 +56,7 @@
               </div>
               <div v-for="ingredient in ingredients">
                 <IngredientCard :ingredient="ingredient"/>
+                wow
               </div>
             </div>
           </div>
@@ -73,11 +74,11 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, ref, onMounted } from 'vue';
-import { Recipes } from '../models/Recipes';
+import { Recipes } from '../models/Recipes.js';
 import { recipeService } from '../services/RecipeService.js'
 import Pop from '../utils/Pop';
-import { favoriteService } from '../services/FavoriteService';
-import { ingredientsService } from '../services/IngredientsService';
+import { favoriteService } from '../services/FavoriteService.js';
+import { ingredientsService } from '../services/IngredientsService.js';
 import IngredientCard from './IngredientCard.vue';
 export default {
   props: { recipe: { type: Recipes, required: true } },
