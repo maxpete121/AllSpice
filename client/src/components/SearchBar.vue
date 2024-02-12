@@ -1,7 +1,7 @@
 <template>
     <div class="search-box">
         <form action="" class="d-flex align-items-center">
-            <input class="search-bar" type="text" required maxlength="40">
+            <input class="search-bar" type="text" maxlength="40">
             <button class="search-button">Search</button>
         </form>
     </div>

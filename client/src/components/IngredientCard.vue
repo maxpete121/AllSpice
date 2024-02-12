@@ -1,6 +1,6 @@
 <template>
     <div class="ingredient-card mt-4 p-2 d-flex justify-content-between">
-        <div>
+        <div class="ms-2">
             <h5>{{ ingredient.name }}</h5>
             <span class="d-flex">
                 <h6 class="me-2 fst-italic">Amount:</h6>
@@ -25,8 +25,8 @@ export default {
     setup(props){
         async function deleteIngredient(){
             if(window.confirm(`Would you like to remove ${props.ingredient.name} from your ingredients?`)){
-                await ingredientsService.deleteIngredient(props.ingredient.id)
                 Pop.success(`${props.ingredient.name} removed.`)
+                await ingredientsService.deleteIngredient(props.ingredient.id)
             }
         }
     return { 
@@ -43,7 +43,6 @@ export default {
 .ingredient-card{
     background-color: rgb(243, 243, 243);
     box-shadow: -3px 6px 6px rgba(0, 0, 0, 0.427);
-    border-top: solid 1px rgba(0, 0, 0, 0.575);
-    
+    border-top: solid 1px #0cbc87;
 }
 </style>

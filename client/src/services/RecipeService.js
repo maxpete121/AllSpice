@@ -38,6 +38,12 @@ class RecipeService{
         AppState.activeRecipe = newRecipe
         // console.log(newRecipe)
     }
+
+    async editInstructions(instructionData, recipeId){
+        let response = await api.put(`api/recipes/${recipeId}`, instructionData)
+        let updatedRecipe = new Recipes(response.data)
+        AppState.recipes = AppState.recipes.map(recipe => recipe.id !== recipeId ? recipe : updatedRecipe)
+    }
 }
 
 export const recipeService = new RecipeService()

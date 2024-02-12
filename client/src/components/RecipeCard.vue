@@ -33,9 +33,9 @@
                 <h4 class="text-success fst-italic">Instructions</h4>
                 <h6 class="ms-3">{{ recipe.instructions }}</h6>
               </div>
-              <form v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-3 ps-4 pe-4">
+              <form @submit.prevent="editInstructions()" v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-3 ps-4 pe-4">
                 <label for="">Edit Instructions</label>
-                <textarea name="" id="" cols="25" rows="3"></textarea>
+                <textarea v-model="recipeUpdateData.instructions" class="form-control" name="" id="" cols="25" rows="3">{{ recipe.instructions }}</textarea>
                 <div class="mt-2">
                   <button class="btn btn-outline-success">Change</button>
                 </div>
@@ -59,7 +59,7 @@
               </div>
               <div></div>
             </div>
-            <div class="w-50 recipe-info pb-4 pt-2 ps-3 pe-3">
+            <div class="w-50 recipe-info-s pb-4 pt-2 ps-3 pe-3">
               <div class="text-center">
                 <h3 class="text-success fst-italic">Ingredients</h3>
               </div>
@@ -93,6 +93,7 @@ export default {
   props: { recipe: { type: Recipes, required: true } },
   setup(props) {
     let ingredientData = ref({})
+    let recipeUpdateData = ref({})
     async function DeleteRecipe() {
       if (window.confirm(`Would you like to delete ${props.recipe.title}`)) {
         let message = await recipeService.DeleteRecipe(props.recipe.id)
@@ -117,6 +118,11 @@ export default {
       ingredientData.value = {}
     }
 
+    async function editInstructions(){
+      await recipeService.editInstructions(recipeUpdateData.value, props.recipe.id)
+      recipeUpdateData.value = {}
+    }
+
     async function getIngredients(){
       await ingredientsService.getIngredients(props.recipe.id)
     }
@@ -131,6 +137,8 @@ export default {
       postIngredient,
       getIngredients,
       setActiveRecipe,
+      editInstructions,
+      recipeUpdateData,
       account: computed(() => AppState.account),
       ingredients: computed(()=> AppState.ingredients),
       ingredientData,
@@ -188,6 +196,15 @@ export default {
   outline: solid 1px #0cbc87;
   border-radius: 5px;
   box-shadow: -4px 6px 6px rgba(0, 0, 0, 0.529);
+}
+
+.recipe-info-s{
+  background-color: whitesmoke;
+  outline: solid 1px #0cbc87;
+  border-radius: 5px;
+  box-shadow: -4px 6px 6px rgba(0, 0, 0, 0.529);
+  height: 365px;
+  overflow-y: scroll;
 }
 
 .img-resize {

@@ -19,7 +19,7 @@ class IngredientsService{
     }
 
     async deleteIngredient(ingredientId){
-        let response = await api.delete(`api/ingredient/${ingredientId}`)
+        let response = await api.delete(`api/ingredients/${ingredientId}`)
         let ingredientIndex = AppState.ingredients.findIndex(ingredient => ingredient.id == ingredientId)
         AppState.ingredients.splice(ingredientIndex, 1)
     }
