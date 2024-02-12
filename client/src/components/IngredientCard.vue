@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h2 class="text-dark">{{ ingredient.name }}</h2>
+        wow
+        <h2>{{ ingredient.name }}</h2>
         <h2>{{ ingredient.quantity }}</h2>
     </div>
 </template>

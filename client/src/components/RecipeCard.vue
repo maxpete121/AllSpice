@@ -28,15 +28,24 @@
             <div class="w-50 text-center">
               <img class="img-fluid img-resize" :src="recipe.img" alt="image of food.">
             </div>
-            <div class="w-50 text-center">
-              <h4>Instructions</h4>
-              <h6 class="ms-3">{{ recipe.instructions }}</h6>
+            <div class="w-50 text-center d-flex flex-column justify-content-between p-2 recipe-info">
+              <div>
+                <h4 class="text-success fst-italic">Instructions</h4>
+                <h6 class="ms-3">{{ recipe.instructions }}</h6>
+              </div>
+              <form action="" class="d-flex flex-column mt-3 ps-4 pe-4">
+                <label for="">Edit Instructions</label>
+                <textarea name="" id="" cols="25" rows="3"></textarea>
+                <div class="mt-2">
+                  <button class="btn btn-outline-success">Change</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="d-flex mt-2">
+          <div class="d-flex mt-3">
             <div v-if="recipe.creatorId == account.id" class="w-50 text-center">
               <div class="d-flex justify-content-center mt-2">
-                <h4 class="text-success">Add New Ingredient</h4>
+                <h3 class="text-success fst-italic">Add New Ingredient</h3>
               </div>
               <div id="ingredient-form" class="d-flex justify-content-center">
                 <form @submit.prevent="postIngredient()" class="mt-1 w-75">
@@ -52,11 +61,10 @@
             </div>
             <div class="w-50">
               <div class="text-center">
-                <h3>Ingredients</h3>
+                <h3 class="text-success fst-italic">Ingredients</h3>
               </div>
               <div v-for="ingredient in ingredients">
                 <IngredientCard :ingredient="ingredient"/>
-                wow
               </div>
             </div>
           </div>
@@ -80,6 +88,7 @@ import Pop from '../utils/Pop';
 import { favoriteService } from '../services/FavoriteService.js';
 import { ingredientsService } from '../services/IngredientsService.js';
 import IngredientCard from './IngredientCard.vue';
+
 export default {
   props: { recipe: { type: Recipes, required: true } },
   setup(props) {
@@ -137,7 +146,8 @@ export default {
         return newId
       })
     }
-  }, components: { IngredientCard }
+  },
+   components: { IngredientCard }
 };
 </script>
 
@@ -165,6 +175,13 @@ export default {
 
 .recipe-card-child {
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.recipe-info{
+  background-color: whitesmoke;
+  outline: solid 1px #0cbc87;
+  border-radius: 5px;
+  box-shadow: -4px 6px 6px rgba(0, 0, 0, 0.529);
 }
 
 .img-resize {

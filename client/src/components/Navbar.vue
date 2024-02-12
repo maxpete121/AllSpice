@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark px-3">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+  <nav class="navbar-dark px-3">
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    </button> -->
+    <div class="d-flex justify-content-evenly align-items-center" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
           <router-link :to="{ name: 'Home' }">
@@ -12,13 +12,12 @@
           </router-link>
         </li>
       </ul>
-      <!-- LOGIN COMPONENT HERE -->
       <div>
-        <button class="btn text-light" @click="toggleTheme">
-          <i class="mdi" :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i>
-        </button>
+        <SearchBar/>
       </div>
-      <Login />
+      <div>
+        <Login />
+      </div>
     </div>
   </nav>
 </template>
@@ -27,6 +26,7 @@
 import { onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import SearchBar from './SearchBar.vue';
 export default {
   setup() {
 
@@ -45,7 +45,7 @@ export default {
       }
     }
   },
-  components: { Login }
+  components: { Login, SearchBar }
 }
 </script>
 
