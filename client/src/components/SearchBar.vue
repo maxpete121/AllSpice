@@ -40,9 +40,8 @@ export default {
     padding: 5px;
     padding-left: 8px;
     background-color: rgb(235, 235, 235);
-    outline: dashed 2px #0cbc87;
+    outline: dashed 2px #009f6f;
 }
-
 .search-button{
     all: unset;
     padding: 5px;
@@ -51,6 +50,7 @@ export default {
     background-color: rgb(235, 235, 235);
     outline: solid 1px #0cbc87;
 }
+
 .search-button:hover{
     all: unset;
     padding: 5px;

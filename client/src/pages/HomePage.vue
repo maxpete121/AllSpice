@@ -12,9 +12,9 @@
     <section class="row justify-content-center">
       <div class="col-lg-3 col-10 d-flex select-bar p-2 justify-content-center mt-3">
         <div class="d-flex">
-          <button @click="getRecipes()" class="btn btn-success button-s">Home</button>
-          <button @click="getMyRecipes()" class="ms-3 me-3 btn btn-success button-s">My Recipes</button>
-          <button @click="getFavorites()" class="btn btn-success button-s">Favorite</button>
+          <button @click="getRecipes()" class="btn btn-success">Home</button>
+          <button @click="getMyRecipes()" class="ms-3 me-3 btn btn-success">My Recipes</button>
+          <button @click="getFavorites()" class="btn btn-success">Favorite</button>
         </div>
       </div>
     </section>
@@ -81,12 +81,9 @@ export default {
   background-color: whitesmoke;
   border-radius: 15px;
   outline: solid 1px black;
-  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.633);
+  box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.437);
 }
 
-.button-s{
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.605);
-}
 .home {
   display: grid;
   height: 80vh;

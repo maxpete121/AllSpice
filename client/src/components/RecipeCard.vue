@@ -1,7 +1,7 @@
 <template>
   <div :style="bgPic" class="recipe-card-home d-flex flex-column justify-content-between" :title="recipe.title">
     <div class="mt-1 ms-1">
-      <button @click="getIngredients()" type="button" data-bs-toggle="modal" :data-bs-target="target" class="btn btn-success">See recipe...</button>
+      <button @click="setActiveRecipe(), getIngredients()" type="button" data-bs-toggle="modal" :data-bs-target="target" class="btn btn-success">See recipe...</button>
     </div>
     <div class="text-dark recipe-card-child p-2 d-flex justify-content-between">
       <div class="">
@@ -33,7 +33,7 @@
                 <h4 class="text-success fst-italic">Instructions</h4>
                 <h6 class="ms-3">{{ recipe.instructions }}</h6>
               </div>
-              <form action="" class="d-flex flex-column mt-3 ps-4 pe-4">
+              <form v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-3 ps-4 pe-4">
                 <label for="">Edit Instructions</label>
                 <textarea name="" id="" cols="25" rows="3"></textarea>
                 <div class="mt-2">
@@ -42,7 +42,7 @@
               </form>
             </div>
           </div>
-          <div class="d-flex mt-3">
+          <div class="d-flex mt-3 justify-content-center">
             <div v-if="recipe.creatorId == account.id" class="w-50 text-center">
               <div class="d-flex justify-content-center mt-2">
                 <h3 class="text-success fst-italic">Add New Ingredient</h3>
@@ -120,12 +120,17 @@ export default {
     async function getIngredients(){
       await ingredientsService.getIngredients(props.recipe.id)
     }
+
+    async function setActiveRecipe(){
+      await recipeService.setActiveRecipe(props.recipe.id)
+    }
     return {
       DeleteRecipe,
       postNewFavorite,
       removeFavorite,
       postIngredient,
       getIngredients,
+      setActiveRecipe,
       account: computed(() => AppState.account),
       ingredients: computed(()=> AppState.ingredients),
       ingredientData,
@@ -159,7 +164,7 @@ export default {
   background-position: center;
   background-size: cover;
   border-radius: 5px;
-  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.481);
+  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.422);
   overflow: hidden;
 }
 
@@ -174,7 +179,8 @@ export default {
 }
 
 .recipe-card-child {
-  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(11px);
+  background-color: rgba(255, 255, 255, 0.378);
 }
 
 .recipe-info{

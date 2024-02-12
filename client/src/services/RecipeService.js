@@ -31,6 +31,13 @@ class RecipeService{
         let message = response.data
         return message
     }
+
+    async setActiveRecipe(recipeId){
+        let response = await api.get(`api/recipes/${recipeId}`)
+        let newRecipe = new Recipes(response.data)
+        AppState.activeRecipe = newRecipe
+        // console.log(newRecipe)
+    }
 }
 
 export const recipeService = new RecipeService()

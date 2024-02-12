@@ -72,20 +72,22 @@ export default {
 
 <style lang="scss" scoped>
 .create-card{
-    min-height: 70px;
-    min-width: 120px;
+    height: 110px;
+    width: 110px;
     // max-width: 120px;
-    box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.523);
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.523);
 }
 
 .create-card:hover{
-    min-height: 70px;
-    min-width: 120px;
+    height: 110px;
+    width: 110px;
     box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.523);
     transform: scale(1.03);
     cursor: pointer;
 }
 .add-button{
-    font-size: 70px;
+    font-size: 60px;
+    justify-self: center;
+    align-self: center;
 }
 </style>
