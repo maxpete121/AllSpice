@@ -5,17 +5,19 @@
       <span class="navbar-toggler-icon"></span>
     </button> -->
     <div class="d-flex justify-content-evenly align-items-center" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'Home' }">
-            <i class="mdi mdi-home fs-1 text-success"></i>
-          </router-link>
-        </li>
-      </ul>
-      <div>
+      <div class="d-flex justify-content-start w-25">
+        <ul class="navbar-nav me-auto">
+          <li>
+            <router-link :to="{ name: 'Home' }">
+              <i class="mdi mdi-home fs-1 text-success"></i>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="w-50 d-flex justify-content-center">
         <SearchBar/>
       </div>
-      <div>
+      <div class="d-flex justify-content-end w-25">
         <Login />
       </div>
     </div>

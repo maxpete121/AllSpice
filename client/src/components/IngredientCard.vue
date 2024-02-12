@@ -1,8 +1,7 @@
 <template>
-    <div>
-        wow
-        <h2>{{ ingredient.name }}</h2>
-        <h2>{{ ingredient.quantity }}</h2>
+    <div class="ingredient-card mt-3 p-2">
+        <h5>{{ ingredient.name }}</h5>
+        <h6>{{ ingredient.quantity }}</h6>
     </div>
 </template>
 
@@ -21,5 +20,8 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.ingredient-card{
+    background-color: rgb(243, 243, 243);
+    box-shadow: -3px 6px 6px rgba(0, 0, 0, 0.427);
+}
 </style>
