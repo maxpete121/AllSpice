@@ -93,10 +93,15 @@ public class RecipeRepository(IDbConnection db){
         List<Recipes> recipe = db.Query<Recipes>(sql, new{userId}).ToList();
         return recipe;
     }
+
+    internal List<Recipes> GetRecipeByQuery(string query){
+        string sql = @"
+        SELECT
+        *
+        FROM recipes
+        WHERE category = @query
+        ";
+        List<Recipes> recipe = db.Query<Recipes>(sql, new{query}).ToList();
+        return recipe;
+    }
 }
-//   id INT AUTO_INCREMENT PRIMARY KEY,
-//   title VARCHAR(40) NOT NULL,
-//   instructions VARCHAR(500) NOT NULL,
-//   img VARCHAR(500) NOT NULL,
-//   category ENUM ("Cheese", "Italian", "Soup", "Mexican", "Specialty Coffee") DEFAULT "Soup",
-//   creatorId VARCHAR(255) NOT NULL,

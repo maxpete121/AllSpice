@@ -48,4 +48,9 @@ public class RecipeService(RecipeRepository repo){
         List<Recipes> recipes = repo.GetAccountRecipes(userId);
         return recipes;
     }
+
+    internal List<Recipes> GetRecipeByQuery(string query){
+        List<Recipes> recipe = repo.GetRecipeByQuery(query);
+        return recipe;
+    }
 }

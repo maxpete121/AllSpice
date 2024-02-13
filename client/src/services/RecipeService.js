@@ -44,6 +44,12 @@ class RecipeService{
         let updatedRecipe = new Recipes(response.data)
         AppState.recipes = AppState.recipes.map(recipe => recipe.id !== recipeId ? recipe : updatedRecipe)
     }
+
+    async searchRecipe(query){
+        let response = await api.get(`api/recipes/${query}/category`)
+        let newRecipes = await response.data.map(recipe => new Recipes(recipe))
+        AppState.recipes = newRecipes
+    }
 }
 
 export const recipeService = new RecipeService()

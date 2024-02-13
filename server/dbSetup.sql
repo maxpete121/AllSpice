@@ -75,3 +75,8 @@ DROP TABLE recipes;
         *
         FROM ingredients
         WHERE id = 5
+
+       SELECT
+        *
+        FROM recipes
+        WHERE category = Soup

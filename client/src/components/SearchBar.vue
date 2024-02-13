@@ -1,7 +1,7 @@
 <template>
     <div class="search-box">
-        <form action="" class="d-flex align-items-center">
-            <input class="search-bar" type="text" maxlength="40">
+        <form @submit.prevent="searchRecipe()" class="d-flex align-items-center">
+            <input v-model="searchData" class="search-bar" type="text" maxlength="40" required>
             <button class="search-button">Search</button>
         </form>
     </div>
@@ -11,9 +11,17 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, ref, onMounted } from 'vue';
+import {recipeService} from '../services/RecipeService.js';
 export default {
     setup(){
-    return {  }
+        let searchData = ref('')
+        async function searchRecipe(){
+            await recipeService.searchRecipe(searchData.value)
+        }
+    return { 
+        searchRecipe,
+        searchData,
+     }
     }
 };
 </script>
@@ -36,7 +44,7 @@ export default {
     all: unset;
     border-bottom-left-radius: 12px;
     border-top-left-radius: 12px;
-    height: 22px;
+    height: 24px;
     padding: 5px;
     padding-left: 8px;
     background-color: rgb(235, 235, 235);

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace RecipeApp.Controllers;
@@ -97,6 +98,22 @@ public class RecipeController : ControllerBase{
         {
             List<Ingredient> ingredients = ingredientService.GetIngredientById(recipeId);
             return Ok(ingredients);
+        }
+        catch (Exception error)
+        {
+            
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpGet("{query}/category")]
+    [Authorize]
+
+    public ActionResult<List<Recipes>> GetRecipeByQuery(string query){
+        try
+        {
+            List<Recipes> recipe = recipeService.GetRecipeByQuery(query);
+            return Ok(recipe);
         }
         catch (Exception error)
         {
