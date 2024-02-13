@@ -181,8 +181,7 @@ export default {
   height: 280px;
   background-position: center;
   background-size: cover;
-  border-radius: 5px;
-  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.422);
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.422);
   overflow: hidden;
 }
 
@@ -193,7 +192,6 @@ export default {
   background-size: cover;
   transform: scale(1.02);
   overflow: hidden;
-  border-radius: 5px;
 }
 
 .recipe-card-child {

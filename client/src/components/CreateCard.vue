@@ -71,23 +71,46 @@ export default {
 
 
 <style lang="scss" scoped>
-.create-card{
-    height: 110px;
-    width: 110px;
-    // max-width: 120px;
-    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.523);
-}
 
-.create-card:hover{
-    height: 110px;
-    width: 110px;
-    box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.523);
-    transform: scale(1.03);
-    cursor: pointer;
-}
-.add-button{
+@media screen and (min-width: 576px){
+  .create-card{
+      height: 110px;
+      width: 110px;
+      // max-width: 120px;
+      box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.523);
+  }
+  .create-card:hover{
+      height: 110px;
+      width: 110px;
+      box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.523);
+      transform: scale(1.03);
+      cursor: pointer;
+  }
+  .add-button{
     font-size: 60px;
     justify-self: center;
     align-self: center;
+}
+}
+
+@media screen and (max-width: 576px){
+  .create-card{
+      height: 50px;
+      width: 50px;
+      // max-width: 120px;
+      
+  }
+  .create-card:hover{
+      height: 50px;
+      width: 50px;
+      box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.523);
+      transform: scale(1.03);
+      cursor: pointer;
+  }
+  .add-button{
+    font-size: 25px;
+    justify-self: center;
+    align-self: center;
+}
 }
 </style>

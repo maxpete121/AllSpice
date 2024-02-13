@@ -16,7 +16,6 @@ class FavoriteService{
         let response = await api.get('account/favorites')
         let allFavorites = await response.data.map(favorite => new Recipes(favorite))
         AppState.recipes = allFavorites
-        // console.log(allFavorites)
     }
 
     async removeFavorite(favoriteId){

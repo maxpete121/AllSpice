@@ -9,13 +9,11 @@
         </div>
       </div>
     </section>
-    <section class="row justify-content-center">
-      <div class="col-lg-3 col-10 d-flex select-bar p-2 justify-content-center mt-3">
-        <div class="d-flex">
+    <section class="row justify-content-center mt-3">
+      <div class="col-lg-3 col-10 d-flex select-bar justify-content-center p-2">
           <button @click="getRecipes()" class="btn btn-success">Home</button>
-          <button @click="getMyRecipes()" class="ms-3 me-3 btn btn-success">My Recipes</button>
+          <button @click="getMyRecipes()" class="btn btn-success ms-3 me-3">My Recipes</button>
           <button @click="getFavorites()" class="btn btn-success">Favorite</button>
-        </div>
       </div>
     </section>
     <section class="row mt-4 justify-content-center">
