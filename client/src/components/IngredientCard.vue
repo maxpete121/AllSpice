@@ -40,6 +40,7 @@ export default {
 
 
 <style lang="scss" scoped>
+
 .ingredient-card{
     background-color: rgb(243, 243, 243);
     box-shadow: -3px 6px 6px rgba(0, 0, 0, 0.427);

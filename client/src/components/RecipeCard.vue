@@ -24,16 +24,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="d-flex">
-            <div class="w-50 text-center">
+          <div class="d-lg-flex">
+            <div class="modal-card text-center mb-4 mb-lg-0">
               <img class="img-fluid img-resize" :src="recipe.img" alt="image of food.">
             </div>
-            <div class="w-50 text-center d-flex flex-column justify-content-between p-2 recipe-info">
-              <div v-if="recipe.creatorId !== account.id">
+            <div class="modal-card text-center d-flex flex-column justify-content-between p-2 recipe-info">
+              <div v-if="recipe.creatorId !== account.id" class="mt-2">
                 <h4 class="text-success fst-italic">Instructions</h4>
-                <h6 class="ms-3">{{ recipe.instructions }}</h6>
+                <h6 class="ms-lg-3">{{ recipe.instructions }}</h6>
               </div>
-              <form v-else-if="recipe.creatorId == account.id" @submit.prevent="editInstructions()" v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-3 ps-4 pe-4">
+              <form v-else-if="recipe.creatorId == account.id" @submit.prevent="editInstructions()" v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-4 ps-4 pe-4 mt-lg-0">
                 <h4 class="text-success fst-italic">Instructions</h4>
                 <textarea v-model="recipeUpdateData.instructions" class="form-control" name="" id="" cols="25" rows="5" required></textarea>
                 <div class="mt-2">
@@ -43,13 +43,13 @@
               </form>
             </div>
           </div>
-          <div class="d-flex mt-3 justify-content-center">
-            <div v-if="recipe.creatorId == account.id" class="w-50 text-center">
+          <div class="d-flex mt-3 justify-content-center row">
+            <div v-if="recipe.creatorId == account.id" class="modal-card text-center">
               <div class="d-flex justify-content-center mt-2">
                 <h3 class="text-success fst-italic">Add New Ingredient</h3>
               </div>
               <div id="ingredient-form" class="d-flex justify-content-center">
-                <form @submit.prevent="postIngredient()" class="mt-1 w-75">
+                <form @submit.prevent="postIngredient()" class="mt-1">
                   <label for="">Name</label>
                   <input v-model="ingredientData.name" required maxlength="50" type="text" class="form-control">
                   <label for="">How much?</label>
@@ -60,7 +60,7 @@
               </div>
               <div></div>
             </div>
-            <div class="w-50 recipe-info-s pb-4 pt-2 ps-3 pe-3 mt-2">
+            <div class="modal-card recipe-info-s pb-4 pt-2 ps-3 pe-3 mt-2 order-1">
               <div class="text-center">
                 <h3 class="text-success fst-italic">Ingredients</h3>
               </div>
@@ -176,6 +176,23 @@ export default {
 
 
 <style lang="scss" scoped>
+
+@media screen and (min-width: 576px){
+    .modal-card{
+        width: 50%;
+    }
+    .modal-card-child{
+      width: 75%;
+    }
+}
+@media screen and (max-width: 576px){
+    .modal-card{
+        width: 100%;
+    }
+    .modal-card-child{
+      width: 100%;
+    }
+}
 .recipe-card-home {
   // outline: solid 1px black;
   height: 280px;

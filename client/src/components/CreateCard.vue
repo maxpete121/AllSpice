@@ -1,6 +1,6 @@
 <template>
   <div class="sticky-bottom sticky-top d-flex justify-content-start me-4 mb-2 w-25">
-    <div title="Create new recipe!" type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle create-card bg-success p-2 sticky-bottom text-center mb-2 me-4">
+    <div title="Create new recipe!" type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle create-card bg-success p-2 sticky-bottom d-flex justify-content-center align-items-center mb-2 me-4">
         <i class="mdi mdi-plus add-button"></i>
     </div>
   </div>
@@ -36,7 +36,7 @@
               </div>
               <div class="mt-2 d-flex flex-column text-center">
                 <label for="">Instructions...</label>
-                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="55" rows="4" required></textarea>
+                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="44" rows="4" required></textarea>
               </div>
               <button class="btn btn-secondary mt-2">Create!</button>
             </form>
@@ -76,12 +76,13 @@ export default {
   .create-card{
       height: 110px;
       width: 110px;
-      // max-width: 120px;
+      outline: solid 1px black;
       box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.523);
   }
   .create-card:hover{
       height: 110px;
       width: 110px;
+      outline: solid 1px black;
       box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.523);
       transform: scale(1.03);
       cursor: pointer;
@@ -97,20 +98,11 @@ export default {
   .create-card{
       height: 50px;
       width: 50px;
-      // max-width: 120px;
+      outline: solid 1px black;
       
   }
-  .create-card:hover{
-      height: 50px;
-      width: 50px;
-      box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.523);
-      transform: scale(1.03);
-      cursor: pointer;
-  }
   .add-button{
-    font-size: 25px;
-    justify-self: center;
-    align-self: center;
+    font-size: x-large;
 }
 }
 </style>
