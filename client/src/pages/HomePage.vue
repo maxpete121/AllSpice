@@ -10,7 +10,7 @@
       </div>
     </section>
     <section class="row justify-content-center mt-3">
-      <div class="col-lg-3 col-10 d-flex select-bar justify-content-center p-2">
+      <div v-if="account.id" class="col-lg-3 col-10 d-flex select-bar justify-content-center p-2">
           <button @click="getRecipes()" class="btn btn-success">Home</button>
           <button @click="getMyRecipes()" class="btn btn-success ms-3 me-3">My Recipes</button>
           <button @click="getFavorites()" class="btn btn-success">Favorite</button>
@@ -21,7 +21,7 @@
         <RecipeCard :recipe="recipe"/>
       </div>
     </section>
-          <CreateCard/>
+        <CreateCard/>
   </section>
 </template>
 
@@ -52,6 +52,7 @@ export default {
     }
     return {
       recipes: computed(()=> AppState.recipes),
+      account: computed(()=> AppState.account),
       getMyRecipes,
       getRecipes,
       getFavorites

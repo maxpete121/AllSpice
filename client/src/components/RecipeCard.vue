@@ -35,7 +35,7 @@
               </div>
               <form v-else-if="recipe.creatorId == account.id" @submit.prevent="editInstructions()" v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-4 ps-4 pe-4 mt-lg-0">
                 <h4 class="text-success fst-italic">Instructions</h4>
-                <textarea v-model="recipeUpdateData.instructions" class="form-control" name="" id="" cols="25" rows="5" required></textarea>
+                <textarea v-model="recipeUpdateData.instructions" class="form-control" name="" id="" cols="25" rows="6" required></textarea>
                 <div class="mt-2">
                   <button class="btn btn-outline-success me-2">Save</button>
                   <button @click="clearInstructions()" type="button" class="btn btn-outline-danger">Clear</button>
@@ -60,12 +60,14 @@
               </div>
               <div></div>
             </div>
-            <div class="modal-card recipe-info-s pb-4 pt-2 ps-3 pe-3 mt-2 order-1">
-              <div class="text-center">
-                <h3 class="text-success fst-italic">Ingredients</h3>
-              </div>
-              <div v-for="ingredient in ingredients">
-                <IngredientCard :ingredient="ingredient"/>
+            <div class="modal-card pb-4 pt-2 ps-3 pe-3 mt-2 order-1">
+              <div class="recipe-info-s p-3">
+                <div class="text-center">
+                  <h3 class="text-success fst-italic">Ingredients</h3>
+                </div>
+                <div v-for="ingredient in ingredients">
+                  <IngredientCard :ingredient="ingredient"/>
+                </div>
               </div>
             </div>
           </div>
