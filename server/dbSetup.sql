@@ -34,14 +34,34 @@ CREATE TABLE favorites(
   Foreign Key (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
-DROP TABLE recipes;
+CREATE TABLE reviews(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  body VARCHAR(200) NOT NULL,
+  score INT NOT NULL,
+  recipeId INT NOT NULL,
+  accountId VARCHAR(255) NOT NULL,
+  Foreign Key (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+  Foreign Key (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
+        INSERT INTO reviews
+        (body, score, recipeId, accountId)
+        VALUES
+        ('wow', 2, 141, '65837617fb48f6cd659dd941');
+        
+        SELECT
+        reviews.*,
+        accounts.*
+        FROM reviews
+        JOIN accounts ON reviews.accountId = accounts.id
+        WHERE reviews.id = LAST_INSERT_ID()
 
         SELECT
         recipes.*,
         accounts.*
         FROM recipes
         JOIN accounts ON recipes.creatorId = accounts.id
-        WHERE recipes.id = 2
+        WHERE recipes.id = 55
 
 
         UPDATE recipes SET
@@ -79,4 +99,4 @@ DROP TABLE recipes;
        SELECT
         *
         FROM recipes
-        WHERE category = Soup
+        WHERE category = 'Soup'
