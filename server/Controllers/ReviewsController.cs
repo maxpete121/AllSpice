@@ -13,7 +13,6 @@ public class ReviewsController : ControllerBase{
 
     [HttpPost]
     [Authorize]
-
     public async Task<ActionResult<Reviews>> CreateReview([FromBody] Reviews reviewData){
         try
         {
@@ -28,6 +27,19 @@ public class ReviewsController : ControllerBase{
             return BadRequest(error.Message);
         }
     }
+
+    // [HttpGet("{recipeId}")]
+    // public ActionResult<List<Reviews>> GetRecipeReviews(int recipeId){
+    //     try
+    //     {
+    //     List<Reviews> reviews = reviewsService  
+    //     }
+    //     catch (Exception error)
+    //     {
+            
+    //         return BadRequest(error.Message);
+    //     }
+    // }
 }
 
 

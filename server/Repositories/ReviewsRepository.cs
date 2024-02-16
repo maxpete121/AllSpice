@@ -24,4 +24,19 @@ public class ReviewsRepository(IDbConnection db){
         }, reviewData).FirstOrDefault();
         return review;
     }
+
+    internal List<Reviews> GetRecipeReviews(int recipeId){
+        string sql =@"
+        SELECT
+        reviews.*,
+        accounts.*
+        FROM reviews
+        JOIN accounts ON reviews.accountId = accounts.id
+        WHERE reviews.recipeId = @recipeId";
+        List<Reviews> reviews = db.Query<Reviews, Account, Reviews>(sql, (reviews, account)=>{
+            reviews.Creator = account;
+            return reviews;
+        }, new{recipeId}).ToList();
+        return reviews;
+    }
 }

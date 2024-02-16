@@ -9,4 +9,9 @@ public class ReviewsService(ReviewsRepository repo){
         return review;
         }else{throw new Exception("Please log in to post a review");}
     }
+
+    internal List<Reviews> GetRecipeReviews(int recipeId){
+        List<Reviews> reviews = repo.GetRecipeReviews(recipeId);
+        return reviews;
+    }
 }
