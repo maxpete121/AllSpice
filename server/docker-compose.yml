@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: your-dockerhub-username/RecipeApp:latest
+    image: maxpete/RecipeApp:latest
     restart: unless-stopped
     env_file:
       - RecipeApp-env
