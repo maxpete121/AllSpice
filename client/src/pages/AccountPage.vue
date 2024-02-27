@@ -3,7 +3,7 @@
     <h3>Welcome {{ account.name }}</h3>
   </div>
   <div class="row justify-content-center mt-4">
-    <div class="col-5 text-center d-flex flex-column align-items-center">
+    <div class="col-lg-5 col-10 text-center d-flex flex-column align-items-center">
       <img class="rounded-circle mb-2" :src="account.picture" alt="" />
       <h4>Account Details</h4>
       <form class="w-50">

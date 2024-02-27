@@ -17,8 +17,8 @@
                 <label for="">Recipe Title...</label>
                 <input v-model="newRecipeData.Title" class="form-control" maxlength="40" type="text" required>
               </div>
-              <div class="d-flex mt-2">
-                <div class="me-lg-2 me-1 text-center">
+              <div class="d-flex mt-2 flex-column align-items-center p-1">
+                <div class=" text-center">
                   <label for="">Category...</label>
                   <select v-model="newRecipeData.Category" name="category" id="category-select" class="form-control">
                     <option selected disabled>Select one..</option>
@@ -31,12 +31,12 @@
                 </div>
                 <div class="text-center d-flex flex-column align-items-center">
                 <label for="">Image url of food...</label>
-                <input v-model="newRecipeData.Img" class="form-control w-75" type="url" required maxlength="500">
+                <input v-model="newRecipeData.Img" class="form-control" type="url" required maxlength="500">
               </div>
               </div>
               <div class="mt-2 d-flex flex-column text-center">
                 <label for="">Instructions...</label>
-                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="39" rows="4" required></textarea>
+                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="37" rows="4" required></textarea>
               </div>
               <button class="btn btn-secondary mt-2">Create!</button>
             </form>
