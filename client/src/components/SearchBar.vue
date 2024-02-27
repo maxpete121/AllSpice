@@ -29,7 +29,10 @@ export default {
 
 <style lang="scss" scoped>
 
-.search-bar{
+
+
+@media screen and (min-width: 576px){
+    .search-bar{
     all: unset;
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
@@ -69,5 +72,48 @@ export default {
     cursor: pointer;
 }
 
+}
+@media screen and (max-width: 576px){
+    .search-bar{
+    all: unset;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    height: 28px;
+    padding: 5px;
+    padding-left: 8px;
+    background-color: rgb(235, 235, 235);
+    outline: solid 1px #0cbc87;
+    width: 100px;
+}
 
+.search-bar:focus{
+    all: unset;
+    border-bottom-left-radius: 12px;
+    border-top-left-radius: 12px;
+    height: 24px;
+    padding: 5px;
+    padding-left: 8px;
+    background-color: rgb(235, 235, 235);
+    outline: dashed 2px #009f6f;
+    width: 100px;
+}
+.search-button{
+    all: unset;
+    padding: 5px;
+    border-bottom-right-radius: 13px;
+    border-top-right-radius: 13px;
+    background-color: rgb(235, 235, 235);
+    outline: solid 1px #0cbc87;
+}
+
+.search-button:hover{
+    all: unset;
+    padding: 5px;
+    border-bottom-right-radius: 13px;
+    border-top-right-radius: 13px;
+    outline: solid 1px #0cbc87;
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+}
+}
 </style>
