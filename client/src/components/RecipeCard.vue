@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="recipe.favoriteId == 0" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
+          <button v-if="recipe.favoriteId == 0 && account.id" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>

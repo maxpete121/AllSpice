@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-bottom sticky-top d-flex justify-content-start me-4 mb-2 w-25">
+  <div v-if="account.id" class="sticky-bottom sticky-top d-flex justify-content-start me-4 mb-2 w-25">
     <div title="Create new recipe!" type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="rounded-circle create-card bg-success p-2 sticky-bottom d-flex justify-content-center align-items-center mb-2 me-4">
         <i class="mdi mdi-plus add-button"></i>
     </div>
@@ -18,7 +18,7 @@
                 <input v-model="newRecipeData.Title" class="form-control" maxlength="40" type="text" required>
               </div>
               <div class="d-flex mt-2">
-                <div class="me-2 text-center">
+                <div class="me-lg-2 me-1 text-center">
                   <label for="">Category...</label>
                   <select v-model="newRecipeData.Category" name="category" id="category-select" class="form-control">
                     <option selected disabled>Select one..</option>
@@ -29,14 +29,14 @@
                     <option value="Specialty Coffee">Specialty Coffee</option>
                   </select>
                 </div>
-                <div class="text-center">
+                <div class="text-center d-flex flex-column align-items-center">
                 <label for="">Image url of food...</label>
-                <input v-model="newRecipeData.Img" class="form-control" type="url" required maxlength="500">
+                <input v-model="newRecipeData.Img" class="form-control w-75" type="url" required maxlength="500">
               </div>
               </div>
               <div class="mt-2 d-flex flex-column text-center">
                 <label for="">Instructions...</label>
-                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="44" rows="4" required></textarea>
+                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="39" rows="4" required></textarea>
               </div>
               <button class="btn btn-secondary mt-2">Create!</button>
             </form>
@@ -63,7 +63,8 @@ export default {
       }
     return { 
       newRecipeData,
-      postRecipe
+      postRecipe,
+      account: computed(()=> AppState.account),
      }
     }
 };
