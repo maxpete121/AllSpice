@@ -73,9 +73,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="recipe.favoriteId == 0 && account.id && !isFavorite" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
+          <button v-if="recipe.favoriteId == 0 && account.id && isFavorite == 'no'" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button>{{ isFavorite }}</button>
         </div>
       </div>
     </div>
@@ -109,12 +108,17 @@ export default {
     async function postNewFavorite() {
       let newFavoriteData = {"RecipeId": props.recipe.id}
       let addedFavorite = await favoriteService.postNewFavorite(newFavoriteData)
+      if(addedFavorite){
+        isFavorite.value = 'yes'
+      }
+      console.log(isFavorite.value)
       Pop.success(`Success adding ${addedFavorite.title} to favorites`)
     }
 
     async function removeFavorite(){
       if (window.confirm(`Would you like to remove ${props.recipe.title} from your favorites?`)) {
         let removedFavorite = await favoriteService.removeFavorite(props.recipe.favoriteId)
+        isFavorite.value = 'no'
       }
     }
     async function postIngredient(){
@@ -140,9 +144,14 @@ export default {
       await ingredientsService.getIngredients(props.recipe.id)
     }
 
+    let isFavorite = ref('no')
     async function setActiveRecipe(){
       await recipeService.setActiveRecipe(props.recipe.id)
       let exists = AppState.favoriteCheck.find(favorite => activeRecipe.value.id == favorite.id)
+      if(exists){
+        isFavorite.value = 'yes'
+      }
+
     }
     return {
       DeleteRecipe,
@@ -153,6 +162,7 @@ export default {
       setActiveRecipe,
       editInstructions,
       clearInstructions,
+      isFavorite,
       recipeUpdateData,
       account: computed(() => AppState.account),
       ingredients: computed(()=> AppState.ingredients),

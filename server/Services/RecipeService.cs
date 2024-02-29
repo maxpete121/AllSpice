@@ -50,6 +50,7 @@ public class RecipeService(RecipeRepository repo){
     }
 
     internal List<Recipes> GetRecipeByQuery(string query){
+        query += '%';
         List<Recipes> recipe = repo.GetRecipeByQuery(query);
         return recipe;
     }

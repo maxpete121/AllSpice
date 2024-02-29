@@ -8,7 +8,8 @@ class FavoriteService{
     async postNewFavorite(newFavoriteData){
         let response = await api.post('api/favorites', newFavoriteData)
         let recipeAdded = AppState.recipes.find(recipes => recipes.id == newFavoriteData.RecipeId)
-        // console.log(recipeAdded)
+        let newFavorite = new Recipes(response.data)
+        AppState.favoriteCheck.unshift(newFavorite)
         return recipeAdded
     }
 
@@ -22,6 +23,8 @@ class FavoriteService{
         let response = await api.delete(`api/favorites/${favoriteId}`)
         let favoriteIndex = AppState.recipes.findIndex(recipe => recipe.favoriteId == favoriteId)
         AppState.recipes.splice(favoriteIndex, 1)
+        let favoriteCheckIndex = AppState.favoriteCheck.findIndex(favorite => favorite.id == favoriteId)
+        AppState.favoriteCheck.splice(favoriteCheckIndex, 1)
     }
 
     async favoriteCheck(){

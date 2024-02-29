@@ -36,7 +36,7 @@ import {ingredientsService} from '../services/IngredientsService.js'
 export default {
   setup() {
     let account = computed(()=> AppState.account)
-    watch(account.value, favoriteCheck)
+    watch(account, favoriteCheck)
     onMounted(()=>{
       getRecipes()
     })
