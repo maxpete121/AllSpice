@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { recipeService } from '../services/RecipeService';
 import {AppState} from '../AppState'
 import RecipeCard from '../components/RecipeCard.vue';
@@ -35,6 +35,8 @@ import { favoriteService } from '../services/FavoriteService';
 import {ingredientsService} from '../services/IngredientsService.js'
 export default {
   setup() {
+    let account = computed(()=> AppState.account)
+    watch(account.value, favoriteCheck)
     onMounted(()=>{
       getRecipes()
     })
@@ -49,6 +51,10 @@ export default {
 
     async function getFavorites(){
       await favoriteService.getFavorites()
+    }
+
+    async function favoriteCheck(){
+      await favoriteService.favoriteCheck()
     }
     return {
       recipes: computed(()=> AppState.recipes),

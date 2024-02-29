@@ -73,8 +73,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="recipe.favoriteId == 0 && account.id" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
+          <button v-if="recipe.favoriteId == 0 && account.id && !isFavorite" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button>{{ isFavorite }}</button>
         </div>
       </div>
     </div>
@@ -97,6 +98,7 @@ export default {
   setup(props) {
     let ingredientData = ref({})
     let recipeUpdateData = ref({instructions: props.recipe.instructions})
+    let activeRecipe = computed(()=> AppState.activeRecipe)
     async function DeleteRecipe() {
       if (window.confirm(`Would you like to delete ${props.recipe.title}`)) {
         let message = await recipeService.DeleteRecipe(props.recipe.id)
@@ -140,6 +142,7 @@ export default {
 
     async function setActiveRecipe(){
       await recipeService.setActiveRecipe(props.recipe.id)
+      let exists = AppState.favoriteCheck.find(favorite => activeRecipe.value.id == favorite.id)
     }
     return {
       DeleteRecipe,
@@ -169,7 +172,7 @@ export default {
         let startId = props.recipe.id
         let newId = catchId + startId
         return newId
-      })
+      }),
     }
   },
    components: { IngredientCard }

@@ -99,7 +99,7 @@ public class RecipeRepository(IDbConnection db){
         SELECT
         *
         FROM recipes
-        WHERE category = @query
+        WHERE title LIKE @query
         ";
         List<Recipes> recipe = db.Query<Recipes>(sql, new{query}).ToList();
         return recipe;

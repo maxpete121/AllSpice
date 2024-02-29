@@ -16,5 +16,7 @@ export const AppState = reactive({
 /**@type {Recipes} */
   activeRecipe: {},
 /**@type {Ingredients[]} */
-  ingredients: []
+  ingredients: [],
+/**@type {Recipes[]} */
+  favoriteCheck: [],
 })

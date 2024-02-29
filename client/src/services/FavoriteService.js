@@ -23,6 +23,12 @@ class FavoriteService{
         let favoriteIndex = AppState.recipes.findIndex(recipe => recipe.favoriteId == favoriteId)
         AppState.recipes.splice(favoriteIndex, 1)
     }
+
+    async favoriteCheck(){
+        let response = await api.get('account/favorites')
+        let allFavorites = await response.data.map(favorite => new Recipes(favorite))
+        AppState.favoriteCheck = allFavorites
+    }
 }
 
 export const favoriteService = new FavoriteService()

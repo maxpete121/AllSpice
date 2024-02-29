@@ -12,11 +12,14 @@
 import { AppState } from '../AppState';
 import { computed, ref, onMounted } from 'vue';
 import {recipeService} from '../services/RecipeService.js';
+import { router } from '../router';
 export default {
     setup(){
         let searchData = ref('')
         async function searchRecipe(){
+            router.push({name: 'Home'})
             await recipeService.searchRecipe(searchData.value)
+            searchData.value = ''
         }
     return { 
         searchRecipe,

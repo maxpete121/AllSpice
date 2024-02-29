@@ -100,3 +100,9 @@ CREATE TABLE reviews(
         *
         FROM recipes
         WHERE category = 'Soup'
+
+
+        SELECT
+        *
+        FROM recipes
+        WHERE title LIKE 'lunch'

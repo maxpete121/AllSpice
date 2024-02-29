@@ -36,7 +36,7 @@
               </div>
               <div class="mt-2 d-flex flex-column text-center">
                 <label for="">Instructions...</label>
-                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="37" rows="4" required></textarea>
+                <textarea v-model="newRecipeData.Instructions" name="" id="" cols="34" rows="4" required></textarea>
               </div>
               <button class="btn btn-secondary mt-2">Create!</button>
             </form>
