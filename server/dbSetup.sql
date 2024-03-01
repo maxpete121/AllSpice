@@ -44,6 +44,15 @@ CREATE TABLE reviews(
   Foreign Key (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
+CREATE TABLE instruction(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  body VARCHAR(200) NOT NULL,
+  step INT DEFAULT 0,
+  recipeId INT NOT NULL,
+  creatorId VARCHAR(255) NOT NULL,
+  Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE,
+  Foreign Key (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
         INSERT INTO reviews
         (body, score, recipeId, accountId)
         VALUES

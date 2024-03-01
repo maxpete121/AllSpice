@@ -42,6 +42,9 @@ public class Startup
 
     services.AddScoped<FavoriteRepository>();
     services.AddScoped<FavoriteService>();
+
+    services.AddScoped<InstructionRepository>();
+    services.AddScoped<InstructionService>();
   }
 
   private void ConfigureCors(IServiceCollection services)
