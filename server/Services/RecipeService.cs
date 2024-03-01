@@ -54,4 +54,6 @@ public class RecipeService(RecipeRepository repo){
         List<Recipes> recipe = repo.GetRecipeByQuery(query);
         return recipe;
     }
+
+
 }

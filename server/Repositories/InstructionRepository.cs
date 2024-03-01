@@ -25,4 +25,21 @@ public class InstructionRepository(IDbConnection db){
         }, instructionData).FirstOrDefault();
         return instruction;
     }
+
+    internal List<Instruction> GetInstructionsByRecipe(int recipeId){
+        string sql = @"
+        SELECT
+        instruction.*,
+        recipes.*,
+        accounts.*
+        JOIN recipes ON instruction.recipeId = recipes.id
+        JOIN accounts ON instruction.creatorId = accounts.id
+        WHERE instruction.recipeId = @recipeId;
+        ";
+        List<Instruction> instructions = db.Query<Instruction, Recipes, Account, Instruction>(sql, (instructions, recipe, account)=>{
+            instructions.Creator = account;
+            return instructions;
+        }, new{recipeId}).ToList();
+        return instructions;
+    }
 }
