@@ -29,18 +29,8 @@
               <img class="img-fluid img-resize" :src="recipe.img" alt="image of food.">
             </div>
             <div class="modal-card text-center d-flex flex-column justify-content-between p-2 recipe-info">
-              <div v-if="recipe.creatorId !== account.id" class="mt-2">
-                <h4 class="text-success fst-italic">Instructions</h4>
-                <h6 class="ms-lg-3">{{ recipe.instructions }}</h6>
-              </div>
-              <form v-else-if="recipe.creatorId == account.id" @submit.prevent="editInstructions()" v-if="recipe.creatorId == account.id" class="d-flex flex-column mt-4 ps-4 pe-4 mt-lg-0">
-                <h4 class="text-success fst-italic">Instructions</h4>
-                <textarea v-model="recipeUpdateData.instructions" class="form-control" name="" id="" cols="25" rows="6" required></textarea>
-                <div class="mt-2">
-                  <button class="btn btn-outline-success me-2">Save</button>
-                  <button @click="clearInstructions()" type="button" class="btn btn-outline-danger">Clear</button>
-                </div>
-              </form>
+            <h3>Instructions</h3>
+            <div v-for="instruction in instructions"></div>
             </div>
           </div>
           <div class="d-flex mt-3 justify-content-center row">
@@ -91,6 +81,7 @@ import Pop from '../utils/Pop';
 import { favoriteService } from '../services/FavoriteService.js';
 import { ingredientsService } from '../services/IngredientsService.js';
 import IngredientCard from './IngredientCard.vue';
+import { instructionService } from '../services/InstructionService';
 
 export default {
   props: { recipe: { type: Recipes, required: true } },
@@ -151,10 +142,12 @@ export default {
       if(exists){
         isFavorite.value = 'yes'
       }
-
+      getInstructions()
     }
 
-    async function getInstructions(){}
+    async function getInstructions(){
+      await instructionService.getInstructions(activeRecipe.value.id)
+    }
     return {
       DeleteRecipe,
       postNewFavorite,
@@ -168,6 +161,7 @@ export default {
       recipeUpdateData,
       account: computed(() => AppState.account),
       ingredients: computed(()=> AppState.ingredients),
+      instructions: computed(()=> AppState.recipeInstructions),
       ingredientData,
       bgPic: computed(() => {
         let string = `background-image: url('${props.recipe.img}'); background-size: cover; background-position: center;`
