@@ -1,7 +1,8 @@
 <template>
   <div :style="bgPic" class="recipe-card-home d-flex flex-column justify-content-between" :title="recipe.title">
     <div class="mt-1 ms-1">
-      <button @click="setActiveRecipe(), getIngredients()" type="button" data-bs-toggle="modal" :data-bs-target="target" class="btn btn-success">See recipe...</button>
+      <button @click="setActiveRecipe(), getIngredients()" type="button" data-bs-toggle="modal" :data-bs-target="target"
+        class="btn btn-success">See recipe...</button>
     </div>
     <div class="text-dark recipe-card-child p-2 d-flex justify-content-between">
       <div class="">
@@ -10,7 +11,8 @@
       </div>
       <div class="">
         <button v-if="recipe.favoriteId > 0" @click="removeFavorite()" class="btn btn-secondary me-2">Remove</button>
-        <button v-if="recipe.creatorId == account.id && account" @click="DeleteRecipe()" class="btn btn-danger"><i class="mdi mdi-delete"></i></button>
+        <button v-if="recipe.creatorId == account.id && account" @click="DeleteRecipe()" class="btn btn-danger"><i
+            class="mdi mdi-delete"></i></button>
       </div>
     </div>
   </div>
@@ -29,8 +31,21 @@
               <img class="img-fluid img-resize" :src="recipe.img" alt="image of food.">
             </div>
             <div class="modal-card text-center d-flex flex-column justify-content-between p-2 recipe-info">
-            <h3>Instructions</h3>
-            <div v-for="instruction in instructions"></div>
+              <h3 class="text-success fst-italic">Instructions</h3>
+              <div class="instruction-container">
+                <div v-for="instruction in instructions">
+                  <InstructionCard :instruction="instruction"/>
+                </div>
+              </div>
+              <div class="create-step">
+                <form action="">
+                  <label class="mt-1 mb-1" for="body">Add a step...</label>
+                  <div class="d-flex">
+                    <textarea class="form-control instruction-add" name="body" id="instruction-body" cols="30" rows="2" maxlength="100"></textarea>
+                    <button class="btn btn-outline-success ms-2">Add</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
           <div class="d-flex mt-3 justify-content-center row">
@@ -56,14 +71,15 @@
                   <h3 class="text-success fst-italic">Ingredients</h3>
                 </div>
                 <div v-for="ingredient in ingredients">
-                  <IngredientCard :ingredient="ingredient"/>
+                  <IngredientCard :ingredient="ingredient" />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="recipe.favoriteId == 0 && account.id && isFavorite == 'no'" @click="postNewFavorite()" type="button" class="btn btn-secondary">Favorite⭐</button>
+          <button v-if="recipe.favoriteId == 0 && account.id && isFavorite == 'no'" @click="postNewFavorite()"
+            type="button" class="btn btn-secondary">Favorite⭐</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
@@ -82,13 +98,13 @@ import { favoriteService } from '../services/FavoriteService.js';
 import { ingredientsService } from '../services/IngredientsService.js';
 import IngredientCard from './IngredientCard.vue';
 import { instructionService } from '../services/InstructionService';
-
+import InstructionCard from './InstructionCard.vue';
 export default {
   props: { recipe: { type: Recipes, required: true } },
   setup(props) {
     let ingredientData = ref({})
-    let recipeUpdateData = ref({instructions: props.recipe.instructions})
-    let activeRecipe = computed(()=> AppState.activeRecipe)
+    let recipeUpdateData = ref({ instructions: props.recipe.instructions })
+    let activeRecipe = computed(() => AppState.activeRecipe)
     async function DeleteRecipe() {
       if (window.confirm(`Would you like to delete ${props.recipe.title}`)) {
         let message = await recipeService.DeleteRecipe(props.recipe.id)
@@ -97,55 +113,55 @@ export default {
 
     }
     async function postNewFavorite() {
-      let newFavoriteData = {"RecipeId": props.recipe.id}
+      let newFavoriteData = { "RecipeId": props.recipe.id }
       let addedFavorite = await favoriteService.postNewFavorite(newFavoriteData)
-      if(addedFavorite){
+      if (addedFavorite) {
         isFavorite.value = 'yes'
       }
       console.log(isFavorite.value)
       Pop.success(`Success adding ${addedFavorite.title} to favorites`)
     }
 
-    async function removeFavorite(){
+    async function removeFavorite() {
       if (window.confirm(`Would you like to remove ${props.recipe.title} from your favorites?`)) {
         let removedFavorite = await favoriteService.removeFavorite(props.recipe.favoriteId)
         isFavorite.value = 'no'
       }
     }
-    async function postIngredient(){
+    async function postIngredient() {
       ingredientData.value.recipeId = props.recipe.id
       await ingredientsService.postIngredient(ingredientData.value)
       ingredientData.value = {}
     }
 
-    async function editInstructions(){
+    async function editInstructions() {
       await recipeService.editInstructions(recipeUpdateData.value, props.recipe.id)
-      recipeUpdateData.value = {instructions: props.recipe.instructions}
+      recipeUpdateData.value = { instructions: props.recipe.instructions }
       Pop.success(`${props.recipe.title} instructions saved!`)
     }
 
-    async function clearInstructions(){
-      if(window.confirm('Are you sure you want to clear all instructions?')){
+    async function clearInstructions() {
+      if (window.confirm('Are you sure you want to clear all instructions?')) {
         recipeUpdateData.value = {}
       }
     }
 
-    async function getIngredients(){
-      recipeUpdateData.value = {instructions: props.recipe.instructions}
+    async function getIngredients() {
+      recipeUpdateData.value = { instructions: props.recipe.instructions }
       await ingredientsService.getIngredients(props.recipe.id)
     }
 
     let isFavorite = ref('no')
-    async function setActiveRecipe(){
+    async function setActiveRecipe() {
       await recipeService.setActiveRecipe(props.recipe.id)
       let exists = AppState.favoriteCheck.find(favorite => activeRecipe.value.id == favorite.id)
-      if(exists){
+      if (exists) {
         isFavorite.value = 'yes'
       }
       getInstructions()
     }
 
-    async function getInstructions(){
+    async function getInstructions() {
       await instructionService.getInstructions(activeRecipe.value.id)
     }
     return {
@@ -160,8 +176,8 @@ export default {
       isFavorite,
       recipeUpdateData,
       account: computed(() => AppState.account),
-      ingredients: computed(()=> AppState.ingredients),
-      instructions: computed(()=> AppState.recipeInstructions),
+      ingredients: computed(() => AppState.ingredients),
+      instructions: computed(() => AppState.recipeInstructions),
       ingredientData,
       bgPic: computed(() => {
         let string = `background-image: url('${props.recipe.img}'); background-size: cover; background-position: center;`
@@ -181,29 +197,36 @@ export default {
       }),
     }
   },
-   components: { IngredientCard }
+  components: { IngredientCard, InstructionCard }
 };
 </script>
 
 
 <style lang="scss" scoped>
+@media screen and (min-width: 576px) {
+  .modal-card {
+    width: 50%;
+  }
 
-@media screen and (min-width: 576px){
-    .modal-card{
-        width: 50%;
-    }
-    .modal-card-child{
-      width: 75%;
-    }
+  .modal-card-child {
+    width: 75%;
+  }
 }
-@media screen and (max-width: 576px){
-    .modal-card{
-        width: 100%;
-    }
-    .modal-card-child{
-      width: 100%;
-    }
+
+@media screen and (max-width: 576px) {
+  .modal-card {
+    width: 100%;
+  }
+
+  .modal-card-child {
+    width: 100%;
+  }
 }
+.instruction-add{
+  max-height: 50px;
+  min-height: 50px;
+}
+
 .recipe-card-home {
   // outline: solid 1px black;
   height: 280px;
@@ -226,15 +249,19 @@ export default {
   backdrop-filter: blur(11px);
   background-color: rgba(255, 255, 255, 0.447);
 }
-
-.recipe-info{
+.instruction-container{
+  max-height: 240px;
+  overflow-y: scroll;
+  padding-bottom: 10px;
+}
+.recipe-info {
   background-color: whitesmoke;
   outline: solid 1px #0cbc87;
   border-radius: 5px;
   box-shadow: -4px 6px 6px rgba(0, 0, 0, 0.529);
 }
 
-.recipe-info-s{
+.recipe-info-s {
   background-color: whitesmoke;
   outline: solid 1px #0cbc87;
   border-radius: 5px;
@@ -246,5 +273,4 @@ export default {
 .img-resize {
   height: 270px;
   box-shadow: -4px 4px 5px rgba(0, 0, 0, 0.577);
-}
-</style>
+}</style>
