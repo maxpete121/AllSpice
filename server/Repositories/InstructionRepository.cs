@@ -13,13 +13,12 @@ public class InstructionRepository(IDbConnection db){
 
         SELECT
         instruction.*,
-        recipes.*,
         accounts.*
         FROM instruction
         JOIN accounts ON instruction.creatorId = accounts.id
         WHERE instruction.id = LAST_INSERT_ID()
         ";
-        Instruction instruction = db.Query<Instruction, Recipes, Account, Instruction>(sql, (instructions, recipe, account)=>{
+        Instruction instruction = db.Query<Instruction, Account, Instruction>(sql, (instructions, account)=>{
             instructions.Creator = account;
             return instructions;
         }, instructionData).FirstOrDefault();
@@ -30,16 +29,47 @@ public class InstructionRepository(IDbConnection db){
         string sql = @"
         SELECT
         instruction.*,
-        recipes.*,
         accounts.*
-        JOIN recipes ON instruction.recipeId = recipes.id
+        FROM instruction
         JOIN accounts ON instruction.creatorId = accounts.id
         WHERE instruction.recipeId = @recipeId
         ";
-        List<Instruction> instructions = db.Query<Instruction, Recipes, Account, Instruction>(sql, (instructions, recipe, account)=>{
+        List<Instruction> instructions = db.Query<Instruction, Account, Instruction>(sql, (instructions, account)=>{
             instructions.Creator = account;
             return instructions;
         }, new{recipeId}).ToList();
         return instructions;
+    }
+
+    internal Instruction GetInstructionById(int instructionId){
+        string sql = @"
+        SELECT
+        instruction.*,
+        accounts.*
+        FROM instruction
+        JOIN accounts ON instruction.creatorId = accounts.id
+        WHERE instruction.id = @instructionId
+        ";
+        Instruction instruction = db.Query<Instruction, Account, Instruction>(sql, (instruction, account)=>{
+            instruction.Creator = account;
+            return instruction;
+        }, new{instructionId}).FirstOrDefault();
+        return instruction;
+    }
+
+    internal void DeleteInstruction(int instructionId){
+        string sql = @"
+        DELETE FROM instruction
+        WHERE id = @instructionId";
+        db.Execute(sql, new{instructionId});
+    }
+
+    internal void UpdateInstructionStep(Instruction instructionData){
+        string sql = @"
+        UPDATE instruction SET
+        step = @step
+        WHERE id = @id;
+        ";
+        db.Execute(sql, instructionData);
     }
 }

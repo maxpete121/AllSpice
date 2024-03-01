@@ -39,4 +39,34 @@ public class InstructionController : ControllerBase{
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("{instructionId}")]
+    public ActionResult<Instruction> GetInstructionById(int instructionId){
+        try
+        {
+            Instruction instruction = instructionService.GetInstructionById(instructionId);
+            return Ok(instruction);
+        }
+        catch (Exception error)
+        {
+            
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpDelete("{instructionId}")]
+    [Authorize]
+    public async Task<ActionResult<string>> DeleteInstruction(int instructionId){
+        try
+        {
+            Account userInfo = await auth.GetUserInfoAsync<Account>(HttpContext);
+            string message = instructionService.DeleteInstruction(instructionId, userInfo.Id);
+            return Ok(message);
+        }
+        catch (Exception error)
+        {
+            
+            return BadRequest(error.Message);
+        }
+    }
 }
