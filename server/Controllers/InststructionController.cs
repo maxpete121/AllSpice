@@ -1,7 +1,7 @@
 namespace RecipeApp.Controllers;
 
 [ApiController]
-[Route("api/ingredients")]
+[Route("api/instructions")]
 public class InstructionController : ControllerBase{
     private readonly InstructionService instructionService;
     private readonly Auth0Provider auth;

@@ -15,9 +15,9 @@ public class InstructionRepository(IDbConnection db){
         instruction.*,
         recipes.*,
         accounts.*
-        JOIN recipes ON instruction.recipeId = recipes.id
+        FROM instruction
         JOIN accounts ON instruction.creatorId = accounts.id
-        WHERE instruction.id = LAST_INSERT_ID();
+        WHERE instruction.id = LAST_INSERT_ID()
         ";
         Instruction instruction = db.Query<Instruction, Recipes, Account, Instruction>(sql, (instructions, recipe, account)=>{
             instructions.Creator = account;
@@ -34,7 +34,7 @@ public class InstructionRepository(IDbConnection db){
         accounts.*
         JOIN recipes ON instruction.recipeId = recipes.id
         JOIN accounts ON instruction.creatorId = accounts.id
-        WHERE instruction.recipeId = @recipeId;
+        WHERE instruction.recipeId = @recipeId
         ";
         List<Instruction> instructions = db.Query<Instruction, Recipes, Account, Instruction>(sql, (instructions, recipe, account)=>{
             instructions.Creator = account;
