@@ -6,11 +6,11 @@
             </div>
         </div>
         <div class="mt-1 w-75 d-flex align-items-center justify-content-center">
-            <div class="instruction-main pt-1 ps-2 pe-2 pb-1">
+            <div class="instruction-main pt-1 ps-2 pe-2 pb-1 w-100">
                 <p>{{ instruction.body }}</p>
             </div>
-            <div class="ms-4">
-                <button class="btn btn-danger rounded-circle"><i class="mdi mdi-delete"></i></button>
+            <div v-if="account.id == instruction.creatorId" class="ms-4">
+                <button @click="deleteInstruction()" class="btn btn-danger rounded-circle"><i class="mdi mdi-delete"></i></button>
             </div>
         </div>
     </div>
@@ -21,10 +21,21 @@
 import { AppState } from '../AppState';
 import { computed, ref, onMounted } from 'vue';
 import { Instruction } from '../models/Instruction';
+import { instructionService } from '../services/InstructionService';
+import Pop from '../utils/Pop';
+import { recipeService } from '../services/RecipeService';
 export default {
     props: { instruction: { type: Instruction, required: true } },
-    setup(){
-    return {  }
+    setup(props){
+        async function deleteInstruction(){
+            let message = await instructionService.deleteInstruction(props.instruction.id)
+            Pop.success(message)
+            // instructionService.getInstructions(props.instruction.recipeId)
+        }
+    return { 
+        deleteInstruction,
+        account: computed(()=> AppState.account)
+     }
     }
 };
 </script>

@@ -30,7 +30,7 @@ public class InstructionService(InstructionRepository repo){
         List<Instruction> allInstructions = GetInstructionsByRecipe(instruction.RecipeId);
         repo.DeleteInstruction(instructionId);
         int currentStep = 0;
-        for (int i = 0; i < allInstructions.Count; i++){
+        for (int i = 1; i < allInstructions.Count; i++){
           allInstructions[i].Step = currentStep += 1;
           Instruction toUpdate = allInstructions[i];
           repo.UpdateInstructionStep(toUpdate);

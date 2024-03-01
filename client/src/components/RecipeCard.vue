@@ -37,11 +37,11 @@
                   <InstructionCard :instruction="instruction"/>
                 </div>
               </div>
-              <div class="create-step">
-                <form action="">
+              <div v-if="account.id == recipe.creatorId" class="create-step">
+                <form @submit.prevent="createInstruction()" action="">
                   <label class="mt-1 mb-1" for="body">Add a step...</label>
                   <div class="d-flex">
-                    <textarea class="form-control instruction-add" name="body" id="instruction-body" cols="30" rows="2" maxlength="100"></textarea>
+                    <textarea v-model="instructionData" class="form-control instruction-add" name="body" id="instruction-body" cols="30" rows="2" maxlength="100"></textarea>
                     <button class="btn btn-outline-success ms-2">Add</button>
                   </div>
                 </form>
@@ -103,6 +103,7 @@ export default {
   props: { recipe: { type: Recipes, required: true } },
   setup(props) {
     let ingredientData = ref({})
+    let instructionData = ref('')
     let recipeUpdateData = ref({ instructions: props.recipe.instructions })
     let activeRecipe = computed(() => AppState.activeRecipe)
     async function DeleteRecipe() {
@@ -164,6 +165,13 @@ export default {
     async function getInstructions() {
       await instructionService.getInstructions(activeRecipe.value.id)
     }
+
+    async function createInstruction(){
+      let newInstructionData = {step: 0, body: instructionData.value, recipeId: activeRecipe.value.id, creatorId: activeRecipe.value.creatorId}
+      let created = await instructionService.createInstruction(newInstructionData)
+      Pop.success(`Step ${created.step} added.`)
+      instructionData.value = ''
+    }
     return {
       DeleteRecipe,
       postNewFavorite,
@@ -175,6 +183,8 @@ export default {
       clearInstructions,
       isFavorite,
       recipeUpdateData,
+      instructionData,
+      createInstruction,
       account: computed(() => AppState.account),
       ingredients: computed(() => AppState.ingredients),
       instructions: computed(() => AppState.recipeInstructions),
@@ -250,7 +260,7 @@ export default {
   background-color: rgba(255, 255, 255, 0.447);
 }
 .instruction-container{
-  max-height: 240px;
+  max-height: 220px;
   overflow-y: scroll;
   padding-bottom: 10px;
 }
