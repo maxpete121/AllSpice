@@ -107,7 +107,6 @@ public class RecipeController : ControllerBase{
     }
 
     [HttpGet("{query}/category")]
-    [Authorize]
 
     public ActionResult<List<Recipes>> GetRecipeByQuery(string query){
         try
