@@ -28,8 +28,10 @@ export default {
     props: { instruction: { type: Instruction, required: true } },
     setup(props){
         async function deleteInstruction(){
-            let message = await instructionService.deleteInstruction(props.instruction.id)
-            Pop.success(message)
+            if(window.confirm('Are you sure you want to delete this step?')){
+                let message = await instructionService.deleteInstruction(props.instruction.id)
+                Pop.success(message)
+            }
             // instructionService.getInstructions(props.instruction.recipeId)
         }
     return { 
